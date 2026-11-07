@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -45,13 +46,18 @@ internal sealed class DiscordWebhook
         _ = Task.Run(PumpAsync);
     }
 
-    public void Post(string content)
+    /// <param name="label">Names the message in the server console, e.g. "death.headEyes (Reapy)".</param>
+    /// <param name="content">The radio's line.</param>
+    /// <param name="facts">Optional box of facts under the line.</param>
+    public void Post(string label, string content, Embed facts = null)
     {
         _queue.Writer.TryWrite(new WebhookPayload
         {
+            Label = label,
             Content = content,
             Username = string.IsNullOrWhiteSpace(_persona.Name) ? null : _persona.Name,
             AvatarUrl = string.IsNullOrWhiteSpace(_persona.AvatarUrl) ? null : _persona.AvatarUrl,
+            Embeds = facts is { Fields.Count: > 0 } ? [facts] : null,
             Flags = SuppressNotifications,
         });
     }
@@ -73,6 +79,7 @@ internal sealed class DiscordWebhook
 
     private async Task SendAsync(WebhookPayload payload)
     {
+        var watch = Stopwatch.StartNew();
         for (var attempt = 1; attempt <= MaxAttempts; attempt++)
         {
             TimeSpan wait;
@@ -81,6 +88,7 @@ internal sealed class DiscordWebhook
                 using var response = await Http.PostAsJsonAsync(_url, payload, Json);
                 if (response.IsSuccessStatusCode)
                 {
+                    _logger.Info($"[Radio Norvinsk] Posted {payload.Label} ({watch.ElapsedMilliseconds} ms).");
                     return;
                 }
 
@@ -96,7 +104,7 @@ internal sealed class DiscordWebhook
                 {
                     // 4xx other than 429: a bad payload or a deleted webhook. Retrying won't help.
                     var body = await response.Content.ReadAsStringAsync();
-                    _logger.Error($"[Radio Norvinsk] Discord refused a message ({(int)response.StatusCode}): {Truncate(body, 300)}");
+                    _logger.Error($"[Radio Norvinsk] Discord refused {payload.Label} ({(int)response.StatusCode}): {Truncate(body, 300)}");
                     return;
                 }
             }
@@ -112,7 +120,7 @@ internal sealed class DiscordWebhook
             }
         }
 
-        _logger.Warning($"[Radio Norvinsk] Dropped a message after {MaxAttempts} attempts.");
+        _logger.Warning($"[Radio Norvinsk] Dropped {payload.Label} after {MaxAttempts} attempts.");
     }
 
     private static async Task<TimeSpan> RetryAfterAsync(HttpResponseMessage response)
@@ -145,8 +153,14 @@ internal sealed class DiscordWebhook
 
     private sealed class WebhookPayload
     {
+        [JsonIgnore]
+        public string Label { get; init; }
+
         [JsonPropertyName("content")]
         public string Content { get; init; }
+
+        [JsonPropertyName("embeds")]
+        public Embed[] Embeds { get; init; }
 
         [JsonPropertyName("username")]
         public string Username { get; init; }

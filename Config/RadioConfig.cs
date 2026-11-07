@@ -31,4 +31,18 @@ public class EventsConfig
 {
     public bool Connect { get; set; } = true;
     public bool Disconnect { get; set; } = true;
+
+    /// <summary>PMC raids only, one message per Fika match.</summary>
+    public bool RaidStart { get; set; } = true;
+
+    /// <summary>Deaths and missing in action, in PMC raids.</summary>
+    public bool Death { get; set; } = true;
+
+    /// <summary>Extractions and run-throughs, in PMC raids.</summary>
+    public bool Extraction { get; set; } = true;
+
+    public bool LevelUp { get; set; } = true;
+
+    /// <summary>Bosses (and the Goons) killed by a player, in PMC raids.</summary>
+    public bool BossKill { get; set; } = true;
 }

@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using FikaServer.Services;
 using HarmonyLib;
+using RadioNorvinsk.Raids;
 using RadioNorvinsk.Sessions;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.Reflection.Patching;
@@ -13,6 +14,8 @@ namespace RadioNorvinsk.Patches;
 internal static class PatchContext
 {
     internal static SessionTracker Sessions;
+    internal static RaidReporter Raids;
+    internal static LevelTracker Levels;
     internal static ISptLogger<RadioNorvinskMod> Logger;
 
     // Runs inside Fika's websocket handlers: never let the radio break a player's connection.

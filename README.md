@@ -10,10 +10,19 @@ Server-side only: players install nothing.
 |---|---|---|
 | Connection | A player's game logs in with their profile. | `events.connect` |
 | Disconnection | A player has been gone for `reconnectGraceMinutes` (10 by default). The message gives the session's length. | `events.disconnect` |
+| Raid start | A PMC raid starts: one message for the whole Fika squad, with the map and the in-raid time. | `events.raidStart` |
+| Death | A player dies in a PMC raid: killer and what they were (scav, raider, boss...), weapon, body part, map, time in raid. The cause shows when it isn't the killer's bullet (bleeding, fall, mine...). Missing in action counts as a death. | `events.death` |
+| Extraction | A player extracts from a PMC raid, run-throughs included. | `events.extraction` |
+| Level up | A player gains a level, after a raid or a quest reward. | `events.levelUp` |
+| Boss kill | A player kills a boss (Goons included) in a PMC raid: weapon, distance, body part. | `events.bossKill` |
+
+Scav raids are ignored entirely.
 
 A player who comes back within the grace delay (crash, game restart, slow PC) stays in the same session, and nothing is posted either way.
 
-Planned: raid start, death, level up, boss kill, extraction.
+Deaths get lines picked for the situation when one applies, from the most specific to the plain one: suicide (own grenade), friendly fire, fall, bleeding, explosion, killed by a boss, within the first 2 minutes, head-eyes, by a scav.
+
+Each message is logged in the server console, with Discord's response time: `[Radio Norvinsk] Posted death.headEyes (Reapy) (142 ms).`
 
 **No pings, no notifications.** Every message goes out with Discord's *suppress notifications* flag and an empty `allowed_mentions`. Nobody gets pinged, not even by a nickname like `@everyone`.
 
@@ -47,6 +56,11 @@ The webhook URL is a secret: anyone who has it can post in the channel.
 | `persona.avatarUrl` | `""` | Public image URL shown on each message. Empty: the webhook's own avatar. |
 | `events.connect` | `true` | Post connections. |
 | `events.disconnect` | `true` | Post disconnections. |
+| `events.raidStart` | `true` | Post PMC raid starts. |
+| `events.death` | `true` | Post deaths and missing in action. |
+| `events.extraction` | `true` | Post extractions. |
+| `events.levelUp` | `true` | Post level-ups. |
+| `events.bossKill` | `true` | Post boss kills. |
 | `reconnectGraceMinutes` | `10` | How long a player can be gone and still be in the same session. |
 
 ## Languages
@@ -58,7 +72,15 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | Key | Placeholders |
 |---|---|
 | `connect` | `{player}` |
-| `disconnect` | `{player}`, `{duration}` (built from `formats.durationHours` or `formats.durationMinutes`) |
+| `disconnect` | `{player}`, `{duration}` |
+| `raidStartSolo`, `raidStartSquad` | `{player}` (first of the squad), `{squad}`, `{count}`, `{map}`, `{mapAt}`, `{time}` |
+| `death`, `death.<situation>` | `{player}`, `{killer}`, `{boss}`, `{weapon}`, `{map}`, `{mapAt}`, `{raidTime}` |
+| `mia` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
+| `extract`, `extractRunThrough` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
+| `levelUp` | `{player}`, `{level}` |
+| `bossKill` | `{player}`, `{boss}`, `{weapon}`, `{distance}`, `{map}`, `{mapAt}` |
+
+`{mapAt}` is the map with its preposition, from `mapsAt` ("sur Customs", "on Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.
 
 ## Build
 

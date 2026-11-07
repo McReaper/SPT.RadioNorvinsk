@@ -7,28 +7,27 @@ using SPTarkov.Common.Models.Logging;
 namespace RadioNorvinsk.Chronicle;
 
 /// <summary>
-/// The radio's lines, read from <c>locales/&lt;language&gt;.json</c> over <c>locales/en.json</c>:
-/// a key the chosen language lacks is said in English.
+/// The radio's words, read from <c>locales/&lt;language&gt;.json</c> over <c>locales/en.json</c>:
+/// anything the chosen language lacks is said in English.
 /// </summary>
 internal sealed class Locale
 {
     private static readonly JsonSerializerOptions Options = new()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         PropertyNameCaseInsensitive = true,
         ReadCommentHandling = JsonCommentHandling.Skip,
         AllowTrailingCommas = true,
     };
 
-    private readonly Dictionary<string, string> _formats;
+    private readonly Dictionary<string, Dictionary<string, string>> _sections;
     private readonly Dictionary<string, List<string>> _lines;
     private readonly Dictionary<string, int> _lastPick = new();
     private readonly Random _random = new();
     private readonly object _lock = new();
 
-    private Locale(Dictionary<string, string> formats, Dictionary<string, List<string>> lines)
+    private Locale(Dictionary<string, Dictionary<string, string>> sections, Dictionary<string, List<string>> lines)
     {
-        _formats = formats;
+        _sections = sections;
         _lines = lines;
     }
 
@@ -42,8 +41,9 @@ internal sealed class Locale
             return null;
         }
 
-        var formats = new Dictionary<string, string>(english.Formats, StringComparer.OrdinalIgnoreCase);
-        var lines = new Dictionary<string, List<string>>(english.Lines, StringComparer.OrdinalIgnoreCase);
+        var sections = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+        var lines = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        Merge(english, sections, lines);
 
         if (!string.Equals(language, "en", StringComparison.OrdinalIgnoreCase))
         {
@@ -54,66 +54,97 @@ internal sealed class Locale
             }
             else
             {
-                foreach (var (key, value) in chosen.Formats)
-                {
-                    formats[key] = value;
-                }
-
-                foreach (var (key, variants) in chosen.Lines)
-                {
-                    if (variants is { Count: > 0 })
-                    {
-                        lines[key] = variants;
-                    }
-                }
+                Merge(chosen, sections, lines);
             }
         }
 
-        return new Locale(formats, lines);
+        return new Locale(sections, lines);
     }
 
     /// <summary>
-    /// One variant of <paramref name="key"/>, never the same one twice in a row, with each
-    /// <c>{name}</c> placeholder replaced. Null when no variant exists for the key.
+    /// One variant of the first key in <paramref name="keys"/> that has any, never the same variant twice
+    /// in a row, with each <c>{name}</c> placeholder replaced. Null when none of the keys has a line.
     /// </summary>
-    public string Line(string key, params (string Name, string Value)[] values)
+    public string Line(IEnumerable<string> keys, params (string Name, string Value)[] values)
     {
-        if (!_lines.TryGetValue(key, out var variants) || variants is not { Count: > 0 })
+        foreach (var key in keys)
         {
-            return null;
-        }
-
-        string variant;
-        lock (_lock)
-        {
-            var last = _lastPick.GetValueOrDefault(key, -1);
-            var index = _random.Next(variants.Count);
-            if (index == last && variants.Count > 1)
+            if (!_lines.TryGetValue(key, out var variants) || variants.Count == 0)
             {
-                index = (index + 1 + _random.Next(variants.Count - 1)) % variants.Count;
+                continue;
             }
 
-            _lastPick[key] = index;
-            variant = variants[index];
+            string variant;
+            lock (_lock)
+            {
+                var last = _lastPick.GetValueOrDefault(key, -1);
+                var index = _random.Next(variants.Count);
+                if (index == last && variants.Count > 1)
+                {
+                    index = (index + 1 + _random.Next(variants.Count - 1)) % variants.Count;
+                }
+
+                _lastPick[key] = index;
+                variant = variants[index];
+            }
+
+            return Fill(variant, values);
         }
 
-        return Fill(variant, values);
+        return null;
     }
 
-    /// <summary>A format string from <c>formats</c>, filled like a line. Falls back to the key itself.</summary>
+    /// <summary>An entry of a section (<c>maps</c>, <c>roles</c>, <c>labels</c>...), or null.</summary>
+    public string Text(string section, string key)
+    {
+        return key != null && _sections.TryGetValue(section, out var texts) && texts.TryGetValue(key, out var text)
+            ? text
+            : null;
+    }
+
+    /// <summary>An entry of <c>formats</c>, filled like a line. Falls back to the key itself.</summary>
     public string Format(string key, params (string Name, string Value)[] values)
     {
-        return Fill(_formats.GetValueOrDefault(key, key), values);
+        return Fill(Text("formats", key) ?? key, values);
     }
 
     private static string Fill(string text, (string Name, string Value)[] values)
     {
         foreach (var (name, value) in values)
         {
-            text = text.Replace("{" + name + "}", value);
+            text = text.Replace("{" + name + "}", value ?? "");
         }
 
         return text;
+    }
+
+    private static void Merge(LocaleFile file, Dictionary<string, Dictionary<string, string>> sections, Dictionary<string, List<string>> lines)
+    {
+        foreach (var (name, texts) in file.Sections())
+        {
+            if (texts == null)
+            {
+                continue;
+            }
+
+            if (!sections.TryGetValue(name, out var merged))
+            {
+                sections[name] = merged = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            foreach (var (key, value) in texts)
+            {
+                merged[key] = value;
+            }
+        }
+
+        foreach (var (key, variants) in file.Lines ?? new())
+        {
+            if (variants is { Count: > 0 })
+            {
+                lines[key] = variants;
+            }
+        }
     }
 
     private static LocaleFile Read(string path, ISptLogger<RadioNorvinskMod> logger)
@@ -126,10 +157,7 @@ internal sealed class Locale
 
         try
         {
-            var file = JsonSerializer.Deserialize<LocaleFile>(File.ReadAllText(path), Options) ?? new LocaleFile();
-            file.Formats ??= new();
-            file.Lines ??= new();
-            return file;
+            return JsonSerializer.Deserialize<LocaleFile>(File.ReadAllText(path), Options) ?? new LocaleFile();
         }
         catch (JsonException ex)
         {
@@ -140,7 +168,26 @@ internal sealed class Locale
 
     private sealed class LocaleFile
     {
-        public Dictionary<string, string> Formats { get; set; } = new();
-        public Dictionary<string, List<string>> Lines { get; set; } = new();
+        public Dictionary<string, string> Formats { get; set; }
+        public Dictionary<string, string> Labels { get; set; }
+        public Dictionary<string, string> Maps { get; set; }
+        public Dictionary<string, string> MapsAt { get; set; }
+        public Dictionary<string, string> Roles { get; set; }
+        public Dictionary<string, string> BodyParts { get; set; }
+        public Dictionary<string, string> HeadSegments { get; set; }
+        public Dictionary<string, string> Causes { get; set; }
+        public Dictionary<string, List<string>> Lines { get; set; }
+
+        public IEnumerable<(string Name, Dictionary<string, string> Texts)> Sections()
+        {
+            yield return ("formats", Formats);
+            yield return ("labels", Labels);
+            yield return ("maps", Maps);
+            yield return ("mapsAt", MapsAt);
+            yield return ("roles", Roles);
+            yield return ("bodyParts", BodyParts);
+            yield return ("headSegments", HeadSegments);
+            yield return ("causes", Causes);
+        }
     }
 }

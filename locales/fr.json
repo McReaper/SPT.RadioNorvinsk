@@ -1,22 +1,277 @@
 {
   "formats": {
+    "durationSeconds": "{seconds} s",
+    "durationMinutes": "{minutes} min",
     "durationHours": "{hours} h {minutes}",
-    "durationMinutes": "{minutes} min"
+    "distance": "{meters} m",
+    "clock": "{hours}h{minutes}",
+    "listLastSeparator": " et ",
+    "unknownWeapon": "on ne sait trop quoi"
+  },
+  "labels": {
+    "map": "Map",
+    "time": "Heure",
+    "player": "Joueur",
+    "squad": "Équipe",
+    "killer": "Tueur",
+    "weapon": "Arme",
+    "hit": "Touché",
+    "cause": "Cause",
+    "raidTime": "Temps en raid",
+    "level": "Niveau",
+    "boss": "Boss",
+    "distance": "Distance",
+    "factoryDay": "jour",
+    "factoryNight": "nuit"
+  },
+  "maps": {
+    "bigmap": "Customs",
+    "factory4_day": "Factory",
+    "factory4_night": "Factory",
+    "Woods": "Woods",
+    "Shoreline": "Shoreline",
+    "Interchange": "Interchange",
+    "RezervBase": "Reserve",
+    "laboratory": "Labs",
+    "Lighthouse": "Lighthouse",
+    "TarkovStreets": "Streets",
+    "Sandbox": "Ground Zero",
+    "Sandbox_high": "Ground Zero",
+    "Labyrinth": "Labyrinth"
+  },
+  "mapsAt": {
+    "bigmap": "sur Customs",
+    "factory4_day": "sur Factory",
+    "factory4_night": "sur Factory",
+    "Woods": "sur Woods",
+    "Shoreline": "sur Shoreline",
+    "Interchange": "sur Interchange",
+    "RezervBase": "sur Reserve",
+    "laboratory": "sur Labs",
+    "Lighthouse": "sur Lighthouse",
+    "TarkovStreets": "sur Streets",
+    "Sandbox": "sur Ground Zero",
+    "Sandbox_high": "sur Ground Zero",
+    "Labyrinth": "dans le Labyrinth"
+  },
+  "roles": {
+    "assault": "scav",
+    "marksman": "scav sniper",
+    "cursedAssault": "scav",
+    "assaultGroup": "scav",
+    "crazyAssaultEvent": "scav",
+    "pmcBEAR": "PMC BEAR",
+    "pmcUSEC": "PMC USEC",
+    "pmcBot": "raider",
+    "exUsec": "rogue",
+    "arenaFighter": "combattant d'arène",
+    "arenaFighterEvent": "combattant d'arène",
+    "sectantWarrior": "cultiste",
+    "sectantPriest": "prêtre cultiste",
+    "infectedAssault": "infecté",
+    "infectedPmc": "infecté",
+    "infectedCivil": "infecté",
+    "infectedLaborant": "infecté",
+    "infectedTagilla": "Tagilla infecté",
+    "bossBully": "Reshala",
+    "bossKilla": "Killa",
+    "bossKillaAgro": "Killa",
+    "bossKojaniy": "Shturman",
+    "bossGluhar": "Glukhar",
+    "bossSanitar": "Sanitar",
+    "bossTagilla": "Tagilla",
+    "bossTagillaAgro": "Tagilla",
+    "bossKnight": "Knight",
+    "followerBigPipe": "Big Pipe",
+    "followerBirdEye": "Birdeye",
+    "bossZryachiy": "Zryachiy",
+    "bossBoar": "Kaban",
+    "bossBoarSniper": "le sniper de Kaban",
+    "bossKolontay": "Kollontay",
+    "bossPartisan": "Partisan",
+    "followerBully": "garde de Reshala",
+    "followerKojaniy": "garde de Shturman",
+    "followerGluharAssault": "garde de Glukhar",
+    "followerGluharSecurity": "garde de Glukhar",
+    "followerGluharScout": "garde de Glukhar",
+    "followerGluharSnipe": "garde de Glukhar",
+    "followerSanitar": "garde de Sanitar",
+    "followerTagilla": "garde de Tagilla",
+    "followerBoar": "garde de Kaban",
+    "followerBoarClose1": "garde de Kaban",
+    "followerBoarClose2": "garde de Kaban",
+    "followerKolontayAssault": "garde de Kollontay",
+    "followerKolontaySecurity": "garde de Kollontay",
+    "followerZryachiy": "garde de Zryachiy",
+    "shooterBTR": "le BTR",
+    "gifter": "le Père Noël"
+  },
+  "bodyParts": {
+    "Head": "tête",
+    "Chest": "thorax",
+    "Stomach": "ventre",
+    "LeftArm": "bras gauche",
+    "RightArm": "bras droit",
+    "LeftLeg": "jambe gauche",
+    "RightLeg": "jambe droite"
+  },
+  "headSegments": {
+    "Eyes": "yeux",
+    "Jaws": "mâchoire",
+    "Ears": "oreilles",
+    "Top": "crâne",
+    "Nape": "nuque",
+    "LowerNape": "nuque",
+    "Face": "visage"
+  },
+  "causes": {
+    "Fall": "chute",
+    "LightBleeding": "saignement",
+    "HeavyBleeding": "hémorragie",
+    "Landmine": "mine",
+    "Artillery": "bombardement",
+    "Explosion": "explosion",
+    "ThermobaricExplosion": "explosion",
+    "Dehydration": "déshydratation",
+    "Exhaustion": "épuisement",
+    "RadExposure": "radiations",
+    "Poison": "poison",
+    "LethalToxin": "toxine",
+    "Stimulator": "stimulant",
+    "Flame": "brûlures",
+    "HotGases": "gaz brûlants",
+    "Barbed": "barbelés",
+    "Btr": "le BTR",
+    "Environment": "environnement",
+    "Existence": "inconnue",
+    "Medicine": "médicaments",
+    "Undefined": "inconnue"
   },
   "lines": {
     "connect": [
-      "📻 {player} est à l'antenne.",
-      "📻 Signal capté : {player} est de retour dans la zone.",
-      "📻 {player} vient de se connecter. Les scavs sont priés d'ajuster leurs horaires.",
-      "📻 {player} a rallumé la radio. Norvinsk retient son souffle.",
-      "📻 {player} est en ligne. Son stash, lui, est toujours aussi mal rangé."
+      "📻 Et on retrouve {player}, qui vient de se connecter.",
+      "📻 {player} nous rejoint. Bienvenue sur Radio Norvinsk.",
+      "📻 Et on retrouve {player}, qui vient de se connecter. Tout le monde à couvert.",
+      "📻 Tiens, {player} est en ligne. On espère qu'il reste du carburant dans la planque.",
+      "📻 {player} est en ligne. Le stash n'est toujours pas rangé, mais on ne juge pas.",
+      "📻 {player} est de retour. Les prix du flea, eux, n'ont pas baissé."
     ],
     "disconnect": [
-      "📻 {player} a quitté l'antenne après {duration}.",
-      "📻 Fin de service pour {player} : {duration}.",
-      "📻 Contact perdu avec {player} après {duration} dans la zone.",
-      "📻 {player} a quitté Norvinsk après {duration}. Pas de médaille.",
-      "📻 {player} se déconnecte après {duration}. Le stash reste en l'état."
+      "📻 {player} vient de se déconnecter, après {duration} de jeu. Merci d'avoir été avec nous.",
+      "📻 Fin de session pour {player} : {duration} au compteur.",
+      "📻 {player} nous quitte après {duration}. À la prochaine.",
+      "📻 Et c'est terminé pour {player}, {duration} de jeu. Au lit, maintenant.",
+      "📻 {player} se déconnecte après {duration}. La ferme à bitcoins, elle, continue de tourner.",
+      "📻 {player} se déconnecte après {duration}. Les assurances de Prapor arriveront demain. Peut-être."
+    ],
+    "raidStartSolo": [
+      "📻 On apprend que {player} vient de partir en raid {mapAt}. En solo.",
+      "📻 {player} entre en raid {mapAt}. On lui souhaite bonne chance.",
+      "📻 {player} part en solo {mapAt}. Personne pour couvrir, personne pour témoigner.",
+      "📻 Petite info : {player} est en raid {mapAt}. On garde un œil sur la situation.",
+      "📻 {player} vient de débarquer {mapAt}, en solo. Les scavs du coin sont prévenus.",
+      "📻 {player} part en raid {mapAt}. Un Salewa, deux chargeurs, et beaucoup d'espoir.",
+      "📻 {player} entre en raid {mapAt}, une Tushonka dans le sac. Au cas où."
+    ],
+    "raidStartSquad": [
+      "📻 On apprend à l'instant que {squad} viennent de partir en raid {mapAt}.",
+      "📻 Départ groupé {mapAt} : {squad}. Bonne chance à tous.",
+      "📻 {count} joueurs en raid {mapAt} : {squad}. On suit ça de près.",
+      "📻 Alors, on me signale du monde {mapAt} : {squad}. Ça va faire du bruit.",
+      "📻 {squad}, en raid {mapAt}. On croise les doigts pour que tout le monde rentre.",
+      "📻 {squad} partent en raid {mapAt}. Fence se tient déjà prêt à racheter le butin."
+    ],
+    "death": [
+      "📻 On apprend à l'instant la mort de {player} {mapAt}. C'est {killer} qui a tiré.",
+      "📻 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes.",
+      "📻 Mauvaise nouvelle {mapAt} : on vient de perdre {player}. {killer} est en cause.",
+      "📻 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes. Pour l'assurance, il faudra voir avec Prapor.",
+      "📻 {player} est hors jeu {mapAt}. {killer}, visiblement, n'était pas d'humeur à discuter.",
+      "📻 On apprend la mort de {player} {mapAt}. Le conteneur sécurisé, au moins, est sauf."
+    ],
+    "death.scav": [
+      "📻 On apprend à l'instant la mort de {player} {mapAt}. C'est un scav qui a tiré… oui, un scav. On n'en dira pas plus.",
+      "📻 {player} s'est fait avoir par un scav {mapAt}. Fence, lui, n'a pas l'air surpris.",
+      "📻 Mort de {player} {mapAt}. Un scav, avec {weapon}.",
+      "📻 Un scav a eu raison de {player} {mapAt}."
+    ],
+    "death.headEyes": [
+      "📻 Tête, yeux, pour {player} {mapAt}. Le genre de nouvelle qu'on annonce sans commentaire.",
+      "📻 {player} a pris une balle dans les yeux {mapAt}. {killer} visait bien.",
+      "📻 Mort de {player} {mapAt}, d'une balle dans les yeux. Rien à faire.",
+      "📻 Tête, yeux, pour {player} {mapAt}. Le casque n'y pouvait rien."
+    ],
+    "death.quick": [
+      "📻 {player} est déjà hors jeu {mapAt}, après {raidTime} de raid.",
+      "📻 Raid express pour {player} : {raidTime}, et c'est fini. Le chargement a duré plus longtemps.",
+      "📻 On apprend la mort de {player} {mapAt}, {raidTime} après le début du raid. On n'a même pas eu le temps de l'annoncer.",
+      "📻 {player} est hors jeu {mapAt} après {raidTime}. Le spawn n'a pas été clément."
+    ],
+    "death.boss": [
+      "📻 On apprend la mort de {player} {mapAt}. C'est {boss} qui a tiré.",
+      "📻 {player} a croisé la route de {boss} {mapAt}. Ça ne s'est pas bien terminé.",
+      "📻 Mauvaise rencontre {mapAt} : {player} contre {boss}. On connaît la suite."
+    ],
+    "death.friendlyFire": [
+      "📻 On nous signale un tir ami {mapAt} : {killer} a abattu {player}. L'ambiance dans l'équipe, on en reparlera.",
+      "📻 Tir ami {mapAt}. {killer} sur {player}. On attend les explications.",
+      "📻 Mort de {player} {mapAt}, de la main de {killer}. Même équipe, oui.",
+      "📻 Tir ami {mapAt} : {killer} a abattu {player}. Le brassard, c'est fait pour ça."
+    ],
+    "death.suicide": [
+      "📻 Mort de {player} {mapAt}, par sa propre grenade. On rappelle que la grenade, ça se lance.",
+      "📻 {player} est hors jeu {mapAt}. Personne d'autre n'est impliqué, si vous voyez ce que je veux dire.",
+      "📻 Accident {mapAt} : {player} et sa propre grenade. Pas de témoin."
+    ],
+    "death.bleeding": [
+      "📻 Mort de {player} {mapAt}, d'une hémorragie.",
+      "📻 {player} n'a pas pu stopper le saignement {mapAt}. Il restait pourtant un garrot Esmarch au fond du sac.",
+      "📻 Hémorragie fatale pour {player} {mapAt}."
+    ],
+    "death.fall": [
+      "📻 Mort de {player} {mapAt}, après une chute.",
+      "📻 {player} a sauté {mapAt}. Le sol a gagné.",
+      "📻 {player} est hors jeu {mapAt}. Une chute, rien de plus."
+    ],
+    "death.explosion": [
+      "📻 Explosion {mapAt} : on vient de perdre {player}.",
+      "📻 Mort de {player} {mapAt}, sur une mine. La zone était pourtant signalée… enfin, je crois.",
+      "📻 {player} est hors jeu {mapAt}, après une explosion.",
+      "📻 Mort de {player} {mapAt}, sur une mine. Les panneaux « Mines », ce n'est pas de la déco."
+    ],
+    "death.environment": [
+      "📻 Mort de {player} {mapAt}. La cause exacte reste à déterminer.",
+      "📻 {player} est hors jeu {mapAt}, et personne n'a tiré. On enquête."
+    ],
+    "mia": [
+      "📻 Toujours aucune nouvelle de {player} {mapAt}. Le raid est terminé, et la sortie n'a pas été trouvée.",
+      "📻 {player} n'a pas trouvé la sortie à temps {mapAt}. Il y avait pourtant une carte.",
+      "📻 {player} n'a pas trouvé l'extraction à temps {mapAt}. Le deuxième écran, avec la carte, était peut-être éteint."
+    ],
+    "extract": [
+      "📻 {player} vient de s'extraire {mapAt}, après {raidTime} de raid.",
+      "📻 Extraction réussie pour {player} {mapAt}.",
+      "📻 Bonne nouvelle {mapAt} : {player} rentre à la maison.",
+      "📻 Extraction pour {player} {mapAt}, après {raidTime}. Le flea market attend la marchandise.",
+      "📻 {player} quitte la zone {mapAt}, en un seul morceau. C'est déjà pas mal.",
+      "📻 Extraction pour {player} {mapAt}. Le stash va encore déborder."
+    ],
+    "extractRunThrough": [
+      "📻 Aller-retour express pour {player} {mapAt}. Run-through, comme on dit.",
+      "📻 {player} entre et ressort aussitôt {mapAt}. Visite éclair."
+    ],
+    "levelUp": [
+      "📻 Petite info en passant : {player} passe niveau {level}.",
+      "📻 {player} atteint le niveau {level}. Prapor a sûrement déjà une nouvelle mission à lui confier.",
+      "📻 Niveau {level} pour {player}. Les traders vont pouvoir augmenter leurs prix.",
+      "📻 On me dit que {player} vient de passer niveau {level}. Bravo."
+    ],
+    "bossKill": [
+      "📻 Alors, on me confirme l'info : {boss} est mort, {mapAt}. Et c'est {player} qui l'a eu.",
+      "📻 Alors, on me confirme l'info : {boss} est mort, {mapAt}. Et c'est {player} qui l'a eu. Ses gardes seraient, paraît-il, assez contrariés.",
+      "📻 Grosse nouvelle {mapAt} : {boss} ne répond plus. On doit ça à {player}, à {distance}.",
+      "📻 {player} vient d'abattre {boss} {mapAt}. Ça va se savoir.",
+      "📻 {boss} ne répond plus {mapAt}. {player} va pouvoir se servir dans ses poches."
     ]
   }
 }
