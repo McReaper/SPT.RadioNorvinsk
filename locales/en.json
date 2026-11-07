@@ -1,0 +1,22 @@
+{
+  "formats": {
+    "durationHours": "{hours}h{minutes}",
+    "durationMinutes": "{minutes} min"
+  },
+  "lines": {
+    "connect": [
+      "📻 {player} is on the air.",
+      "📻 Signal acquired: {player} is back in the zone.",
+      "📻 {player} just logged in. Scavs are advised to adjust their schedules.",
+      "📻 {player} switched the radio back on. Norvinsk holds its breath.",
+      "📻 {player} is online. Their stash is still a mess."
+    ],
+    "disconnect": [
+      "📻 {player} went off the air after {duration}.",
+      "📻 End of shift for {player}: {duration}.",
+      "📻 Lost contact with {player} after {duration} in the zone.",
+      "📻 {player} left Norvinsk after {duration}. No medal.",
+      "📻 {player} signed off after {duration}. The stash stays as it is."
+    ]
+  }
+}

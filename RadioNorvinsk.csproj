@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>RadioNorvinsk</AssemblyName>
+    <RootNamespace>RadioNorvinsk</RootNamespace>
+    <Nullable>disable</Nullable>
+    <Version>0.1.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!-- Root of your SPT install. Override with: dotnet build -p:SPTPath="C:\SPT" -->
+  <PropertyGroup>
+    <SPTPath Condition=" '$(SPTPath)' == '' ">..\..</SPTPath>
+    <ServerPath>$(SPTPath)\SPT_Runtime</ServerPath>
+    <ModInstallPath>$(ServerPath)\user\mods\RadioNorvinsk</ModInstallPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(ServerPath)\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SemanticVersioning">
+      <HintPath>$(ServerPath)\SemanticVersioning.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SPTarkov.Common">
+      <HintPath>$(ServerPath)\SPTarkov.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SPTarkov.DI">
+      <HintPath>$(ServerPath)\SPTarkov.DI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SPTarkov.Reflection">
+      <HintPath>$(ServerPath)\SPTarkov.Reflection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SPTarkov.Server.Core">
+      <HintPath>$(ServerPath)\SPTarkov.Server.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Fika is a hard dependency: player sessions come from its presence service. -->
+    <Reference Include="FikaServer">
+      <HintPath>$(ServerPath)\user\mods\fika-server\FikaServer.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="locales\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Opt-in: dotnet build -p:InstallToSPT=true copies the DLL and the locales into SPT_Runtime\user\mods\RadioNorvinsk.
+       The config is never copied: the mod creates config\config.json on first start and the install keeps it. -->
+  <Target Name="InstallToSPT" AfterTargets="Build" Condition=" '$(InstallToSPT)' == 'true' ">
+    <ItemGroup>
+      <LocaleFiles Include="$(OutDir)locales\*.json" />
+    </ItemGroup>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModInstallPath)" />
+    <Copy SourceFiles="@(LocaleFiles)" DestinationFolder="$(ModInstallPath)\locales" />
+  </Target>
+</Project>

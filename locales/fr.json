@@ -1,0 +1,22 @@
+{
+  "formats": {
+    "durationHours": "{hours} h {minutes}",
+    "durationMinutes": "{minutes} min"
+  },
+  "lines": {
+    "connect": [
+      "📻 {player} est à l'antenne.",
+      "📻 Signal capté : {player} est de retour dans la zone.",
+      "📻 {player} vient de se connecter. Les scavs sont priés d'ajuster leurs horaires.",
+      "📻 {player} a rallumé la radio. Norvinsk retient son souffle.",
+      "📻 {player} est en ligne. Son stash, lui, est toujours aussi mal rangé."
+    ],
+    "disconnect": [
+      "📻 {player} a quitté l'antenne après {duration}.",
+      "📻 Fin de service pour {player} : {duration}.",
+      "📻 Contact perdu avec {player} après {duration} dans la zone.",
+      "📻 {player} a quitté Norvinsk après {duration}. Pas de médaille.",
+      "📻 {player} se déconnecte après {duration}. Le stash reste en l'état."
+    ]
+  }
+}

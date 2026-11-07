@@ -1,0 +1,34 @@
+namespace RadioNorvinsk.Config;
+
+/// <summary>Contents of <c>config/config.json</c>. Defaults here are what a fresh install writes.</summary>
+public class RadioConfig
+{
+    /// <summary>Discord webhook the chronicle is posted to. Empty: the radio stays off.</summary>
+    public string WebhookUrl { get; set; } = "";
+
+    /// <summary>File name in <c>locales/</c>, without <c>.json</c>. Missing lines fall back to English.</summary>
+    public string Language { get; set; } = "en";
+
+    public PersonaConfig Persona { get; set; } = new();
+
+    public EventsConfig Events { get; set; } = new();
+
+    /// <summary>A player who reconnects within this delay stays in the same session: no message either way.</summary>
+    public int ReconnectGraceMinutes { get; set; } = 10;
+}
+
+/// <summary>Name and avatar sent with every message, overriding the webhook's own.</summary>
+public class PersonaConfig
+{
+    public string Name { get; set; } = "Radio Norvinsk";
+
+    /// <summary>Public image URL. Empty: Discord shows the webhook's own avatar.</summary>
+    public string AvatarUrl { get; set; } = "";
+}
+
+/// <summary>One switch per event, all on by default.</summary>
+public class EventsConfig
+{
+    public bool Connect { get; set; } = true;
+    public bool Disconnect { get; set; } = true;
+}
