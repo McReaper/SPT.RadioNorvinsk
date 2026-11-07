@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SPTarkov.Server.Core.Services.Locales;
 
@@ -129,7 +130,9 @@ internal sealed class Names(Locale locale, LocaleService gameLocales, string lan
             return names.Count == 1 ? names[0] : "";
         }
 
-        return string.Join(", ", names, 0, names.Count - 1) + locale.Format("listLastSeparator") + names[^1];
+        // Not string.Join(", ", names, 0, n): that overload exists for arrays only, and with a list C# falls
+        // back to Join(params object[]), which prints the list's type name.
+        return string.Join(", ", names.Take(names.Count - 1)) + locale.Format("listLastSeparator") + names[^1];
     }
 
     public string Label(string key)
