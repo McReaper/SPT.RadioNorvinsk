@@ -73,6 +73,7 @@ public class RadioNorvinskMod(
         [
             new PlayerConnectedPatch(),
             new PlayerDisconnectedPatch(),
+            new PlayerLoggedOutPatch(),
             new LocalRaidStartPatch(),
             new LocalRaidEndPatch(),
             new MatchStatusPatch(),

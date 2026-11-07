@@ -13,7 +13,10 @@ public class RadioConfig
 
     public EventsConfig Events { get; set; } = new();
 
-    /// <summary>A player who reconnects within this delay stays in the same session: no message either way.</summary>
+    /// <summary>
+    /// A game that dropped without quitting (crash, lost connection) and reconnects within this delay
+    /// stays in the same session: no message either way. Quitting from the game's menu ends it at once.
+    /// </summary>
     public int ReconnectGraceMinutes { get; set; } = 10;
 }
 

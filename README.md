@@ -9,7 +9,7 @@ Server-side only: players install nothing.
 | Event | When | Switch |
 |---|---|---|
 | Connection | A player's game logs in with their profile. | `events.connect` |
-| Disconnection | A player has been gone for `reconnectGraceMinutes` (10 by default). The message gives the session's length. | `events.disconnect` |
+| Disconnection | A player quits the game from its menu, or a game that dropped stays gone for `reconnectGraceMinutes` (10 by default). The message gives the session's length. | `events.disconnect` |
 | Raid start | A PMC raid starts: one message for the whole Fika squad, with the map and the in-raid time. | `events.raidStart` |
 | Death | A player dies in a PMC raid: killer and what they were (scav, raider, boss...), weapon, body part, map, time in raid. The cause shows when it isn't the killer's bullet (bleeding, fall, mine...). Missing in action counts as a death. | `events.death` |
 | Extraction | A player extracts from a PMC raid, run-throughs included. | `events.extraction` |
@@ -18,7 +18,7 @@ Server-side only: players install nothing.
 
 Scav raids are ignored entirely.
 
-A player who comes back within the grace delay (crash, game restart, slow PC) stays in the same session, and nothing is posted either way.
+A game that drops without quitting (crash, lost connection, slow PC) and comes back within the grace delay stays in the same session, and nothing is posted either way.
 
 Deaths get lines picked for the situation when one applies, from the most specific to the plain one: suicide (own grenade), friendly fire, fall, bleeding, explosion, killed by a boss, within the first 2 minutes, head-eyes, by a scav.
 
@@ -61,7 +61,7 @@ The webhook URL is a secret: anyone who has it can post in the channel.
 | `events.extraction` | `true` | Post extractions. |
 | `events.levelUp` | `true` | Post level-ups. |
 | `events.bossKill` | `true` | Post boss kills. |
-| `reconnectGraceMinutes` | `10` | How long a player can be gone and still be in the same session. |
+| `reconnectGraceMinutes` | `10` | How long a game that dropped without quitting can be gone and still be in the same session. |
 
 ## Languages
 

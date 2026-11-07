@@ -10,8 +10,9 @@ namespace RadioNorvinsk.Sessions;
 
 /// <summary>
 /// Turns Fika's connection events into play sessions. A session starts on the first connection and ends
-/// once the player has stayed away for the whole grace delay: a crash, a game restart or a slow PC that
-/// drops and comes back within the delay is the same session, and says nothing.
+/// when the player quits from the game's menu, or once a game that dropped without quitting has stayed
+/// away for the whole grace delay: a crash or a slow PC that comes back within the delay is the same
+/// session, and says nothing.
 /// </summary>
 internal sealed class SessionTracker(
     TimeSpan grace,
@@ -59,6 +60,27 @@ internal sealed class SessionTracker(
             var leftAt = DateTime.UtcNow;
             session.ScheduleEnd(grace, () => End(key, session, leftAt));
         }
+    }
+
+    /// <summary>
+    /// The player quit from the game's menu: the session is over, there is nothing to wait for.
+    /// The websocket closing right after finds no session and stays silent.
+    /// </summary>
+    public void OnLoggedOut(MongoId sessionId)
+    {
+        Session session;
+        lock (_lock)
+        {
+            if (!_sessions.Remove(sessionId.ToString(), out session))
+            {
+                return;
+            }
+
+            // The websocket may have closed first and started the grace delay.
+            session.CancelEnd();
+        }
+
+        chronicler.SessionEnded(session.Nickname, DateTime.UtcNow - session.StartedAt);
     }
 
     // Runs on a timer thread: an exception escaping here would bring the whole server down.

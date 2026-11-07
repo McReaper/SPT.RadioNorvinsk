@@ -6,6 +6,7 @@ using RadioNorvinsk.Raids;
 using RadioNorvinsk.Sessions;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.Reflection.Patching;
+using SPTarkov.Server.Core.Callbacks;
 using SPTarkov.Server.Core.Models.Common;
 
 namespace RadioNorvinsk.Patches;
@@ -62,5 +63,23 @@ public class PlayerDisconnectedPatch : AbstractPatch
     public static void Postfix(MongoId sessionID)
     {
         PatchContext.Guard("Player disconnection", () => PatchContext.Sessions?.OnDisconnected(sessionID));
+    }
+}
+
+/// <summary>
+/// The game calls /client/game/logout when the player quits from its menu: its very last request.
+/// A crash sends nothing, and is left to the reconnection grace delay.
+/// </summary>
+public class PlayerLoggedOutPatch : AbstractPatch
+{
+    protected override MethodBase GetTargetMethod()
+    {
+        return AccessTools.Method(typeof(GameCallbacks), nameof(GameCallbacks.GameLogout));
+    }
+
+    [PatchPrefix]
+    public static void Prefix(MongoId sessionID)
+    {
+        PatchContext.Guard("Player logout", () => PatchContext.Sessions?.OnLoggedOut(sessionID));
     }
 }
