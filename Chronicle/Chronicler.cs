@@ -117,13 +117,18 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             ("raidTime", names.Duration(playTime)));
     }
 
-    public void LeveledUp(string player, int level)
+    public void LeveledUp(string player, int level, int prestige)
     {
-        if (events.LevelUp)
+        if (!events.LevelUp)
         {
-            Say($"levelUp ({player} {level})", ["levelUp"], Facts(LevelUpColor, ("level", level.ToString())),
-                ("player", Names.Escape(player)), ("level", level.ToString()));
+            return;
         }
+
+        // Prestige 0 is most players: "none" says so, where a bare 0 would read like a missing value.
+        var prestigeText = prestige > 0 ? prestige.ToString() : locale.Format("noPrestige");
+        var facts = Facts(LevelUpColor, ("level", level.ToString()), ("prestige", prestigeText));
+        Say($"levelUp ({player} {level}, prestige {prestige})", ["levelUp"], facts,
+            ("player", Names.Escape(player)), ("level", level.ToString()), ("prestige", prestigeText));
     }
 
     public void BossKilled(string player, string boss, string weapon, double? distance, string hit, string location)

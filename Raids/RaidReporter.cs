@@ -115,9 +115,9 @@ internal sealed class RaidReporter(
         }
 
         // Before this request is processed, the saved profile still holds the level the raid started at.
-        var before = saveServer.ProfileExists(sessionId) ? saveServer.GetProfile(sessionId)?.CharacterData?.PmcData?.Info?.Level : null;
+        var saved = saveServer.ProfileExists(sessionId) ? saveServer.GetProfile(sessionId)?.CharacterData?.PmcData?.Info : null;
         var after = profileHelper.GetLevelFromExperience(profile.Info.Experience ?? 0);
-        levels.Report(sessionId.ToString(), player, before, after);
+        levels.Report(sessionId.ToString(), player, saved?.PrestigeLevel ?? profile.Info.PrestigeLevel, saved?.Level, after);
     }
 
     private DeathStory Death(MongoId sessionId, string player, EftStats eft, string location, TimeSpan playTime)

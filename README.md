@@ -77,7 +77,7 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `death`, `death.<situation>` | `{player}`, `{killer}`, `{boss}`, `{weapon}`, `{map}`, `{mapAt}`, `{raidTime}` |
 | `mia` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
 | `extract`, `extractRunThrough` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
-| `levelUp` | `{player}`, `{level}` |
+| `levelUp` | `{player}`, `{level}`, `{prestige}` |
 | `bossKill` | `{player}`, `{boss}`, `{weapon}`, `{distance}`, `{map}`, `{mapAt}` |
 
 `{mapAt}` is the map with its preposition, from `mapsAt` ("sur Customs", "on Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.

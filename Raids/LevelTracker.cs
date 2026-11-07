@@ -13,23 +13,27 @@ internal sealed class LevelTracker(Chronicler chronicler)
     private readonly Dictionary<string, int> _known = new();
     private readonly object _lock = new();
 
-    public void Report(string profileId, string nickname, int? before, int? after)
+    public void Report(string profileId, string nickname, int? prestige, int? before, int? after)
     {
         if (string.IsNullOrEmpty(profileId) || string.IsNullOrEmpty(nickname) || after is not int now)
         {
             return;
         }
 
+        // Prestiging sends the profile back to level 1 under the same id. Counting levels per prestige
+        // lets the climb back up be announced, instead of waiting for the profile to pass its old level.
+        var rank = prestige ?? 0;
+        var key = $"{profileId}/{rank}";
         lock (_lock)
         {
-            var known = _known.TryGetValue(profileId, out var seen) ? seen : before ?? now;
-            _known[profileId] = Math.Max(known, now);
+            var known = _known.TryGetValue(key, out var seen) ? seen : before ?? now;
+            _known[key] = Math.Max(known, now);
             if (now <= known)
             {
                 return;
             }
         }
 
-        chronicler.LeveledUp(nickname, now);
+        chronicler.LeveledUp(nickname, now, rank);
     }
 }

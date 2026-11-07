@@ -84,7 +84,7 @@ public class LevelRecalculatedPatch : AbstractPatch
             var info = pmcData?.Info;
             if (info != null && !string.Equals(info.Side, "Savage", System.StringComparison.OrdinalIgnoreCase))
             {
-                PatchContext.Levels?.Report(pmcData.Id?.ToString(), info.Nickname, __state, __result);
+                PatchContext.Levels?.Report(pmcData.Id?.ToString(), info.Nickname, info.PrestigeLevel, __state, __result);
             }
         });
     }
