@@ -145,7 +145,13 @@
     "Environment": "environnement",
     "Existence": "inconnue",
     "Medicine": "médicaments",
-    "Undefined": "inconnue"
+    "Undefined": "inconnue",
+    "GrenadeFragment": "éclats de grenade",
+    "Impact": "impact",
+    "Blunt": "choc",
+    "Sniper": "tir de sniper",
+    "Bullet": "balle",
+    "Melee": "arme blanche"
   },
   "lines": {
     "connect": [
