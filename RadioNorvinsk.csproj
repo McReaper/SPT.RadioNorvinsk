@@ -65,4 +65,21 @@
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModInstallPath)" />
     <Copy SourceFiles="@(LocaleFiles)" DestinationFolder="$(ModInstallPath)\locales" />
   </Target>
+
+  <!-- Opt-in: dotnet build -c Release -p:Dist=true builds dist\RadioNorvinsk-<version>.zip, laid out like the SPT
+       folder so it can be extracted there. No config inside: the mod creates config\config.json on first start. -->
+  <Target Name="BuildDist" AfterTargets="Build" Condition=" '$(Dist)' == 'true' ">
+    <PropertyGroup>
+      <DistStage>$(IntermediateOutputPath)dist\</DistStage>
+      <DistModDir>$(DistStage)SPT_Runtime\user\mods\RadioNorvinsk</DistModDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <DistLocales Include="$(OutDir)locales\*.json" />
+    </ItemGroup>
+    <RemoveDir Directories="$(DistStage)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DistModDir)" />
+    <Copy SourceFiles="@(DistLocales)" DestinationFolder="$(DistModDir)\locales" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\dist" />
+    <ZipDirectory SourceDirectory="$(DistStage)" DestinationFile="$(MSBuildProjectDirectory)\dist\RadioNorvinsk-$(Version).zip" Overwrite="true" />
+  </Target>
 </Project>

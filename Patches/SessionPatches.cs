@@ -1,37 +1,11 @@
-using System;
 using System.Reflection;
 using FikaServer.Services;
 using HarmonyLib;
-using RadioNorvinsk.Raids;
-using RadioNorvinsk.Sessions;
-using SPTarkov.Common.Models.Logging;
 using SPTarkov.Reflection.Patching;
 using SPTarkov.Server.Core.Callbacks;
 using SPTarkov.Server.Core.Models.Common;
 
 namespace RadioNorvinsk.Patches;
-
-/// <summary>Where the patches reach the mod: set once at startup, before they are enabled.</summary>
-internal static class PatchContext
-{
-    internal static SessionTracker Sessions;
-    internal static RaidReporter Raids;
-    internal static LevelTracker Levels;
-    internal static ISptLogger<RadioNorvinskMod> Logger;
-
-    // Runs inside Fika's websocket handlers: never let the radio break a player's connection.
-    internal static void Guard(string what, Action action)
-    {
-        try
-        {
-            action();
-        }
-        catch (Exception ex)
-        {
-            Logger?.Error($"[Radio Norvinsk] {what} failed.", ex);
-        }
-    }
-}
 
 /// <summary>
 /// Fika calls <see cref="PresenceService.AddPlayerPresence"/> when a game opens its notification

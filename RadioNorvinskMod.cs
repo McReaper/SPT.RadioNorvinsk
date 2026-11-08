@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RadioNorvinsk.Chronicle;
 using RadioNorvinsk.Config;
 using RadioNorvinsk.Discord;
+using RadioNorvinsk.Levels;
 using RadioNorvinsk.Patches;
 using RadioNorvinsk.Raids;
 using RadioNorvinsk.Sessions;

@@ -4,9 +4,7 @@ using FikaServer.Services;
 using HarmonyLib;
 using SPTarkov.Reflection.Patching;
 using SPTarkov.Server.Core.Controllers;
-using SPTarkov.Server.Core.Extensions;
 using SPTarkov.Server.Core.Models.Common;
-using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Match;
 
 namespace RadioNorvinsk.Patches;
@@ -56,36 +54,5 @@ public class MatchStatusPatch : AbstractPatch
     public static void Prefix(MatchService __instance, MongoId matchId, EFikaMatchStatus status)
     {
         PatchContext.Guard("Match status", () => PatchContext.Raids?.OnMatchStatus(matchId, __instance.GetMatch(matchId), status));
-    }
-}
-
-/// <summary>
-/// SPT recalculates a PMC's level here after quest rewards and trader level checks:
-/// catches level-ups that happen outside raids.
-/// </summary>
-public class LevelRecalculatedPatch : AbstractPatch
-{
-    protected override MethodBase GetTargetMethod()
-    {
-        return AccessTools.Method(typeof(ProfileExtensions), nameof(ProfileExtensions.CalculateLevel));
-    }
-
-    [PatchPrefix]
-    public static void Prefix(PmcData pmcData, out int? __state)
-    {
-        __state = pmcData?.Info?.Level;
-    }
-
-    [PatchPostfix]
-    public static void Postfix(PmcData pmcData, int? __state, int? __result)
-    {
-        PatchContext.Guard("Level check", () =>
-        {
-            var info = pmcData?.Info;
-            if (info != null && !string.Equals(info.Side, "Savage", System.StringComparison.OrdinalIgnoreCase))
-            {
-                PatchContext.Levels?.Report(pmcData.Id?.ToString(), info.Nickname, info.PrestigeLevel, __state, __result);
-            }
-        });
     }
 }

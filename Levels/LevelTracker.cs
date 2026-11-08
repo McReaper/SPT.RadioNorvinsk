@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using RadioNorvinsk.Chronicle;
 
-namespace RadioNorvinsk.Raids;
+namespace RadioNorvinsk.Levels;
 
 /// <summary>
 /// Announces each level once. A level can be seen twice (end of raid, then a quest reward recalculating it),
