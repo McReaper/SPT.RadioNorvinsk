@@ -9,9 +9,12 @@ namespace RadioNorvinsk.Chronicle;
 /// <summary>Turns game ids (map ids, bot roles, item locale keys, body parts) into words the listener knows.</summary>
 internal sealed class Names(Locale locale, LocaleService gameLocales, string language)
 {
-    // The Goons and the cultist priest don't carry the "boss" prefix but are bosses all the same.
-    private static readonly HashSet<string> BossesWithoutPrefix = new(StringComparer.OrdinalIgnoreCase)
+    // Listed one by one: the "boss" prefix also covers Kaban's snipers (bossBoarSniper) and a test role, while the
+    // Goons and the cultist priest don't carry it. Holiday-event roles are left out.
+    private static readonly HashSet<string> Bosses = new(StringComparer.OrdinalIgnoreCase)
     {
+        "bossBoar", "bossBully", "bossGluhar", "bossKilla", "bossKillaAgro", "bossKnight", "bossKojaniy",
+        "bossKolontay", "bossPartisan", "bossSanitar", "bossTagilla", "bossTagillaAgro", "bossZryachiy",
         "followerBigPipe", "followerBirdEye", "sectantPriest",
     };
 
@@ -24,7 +27,7 @@ internal sealed class Names(Locale locale, LocaleService gameLocales, string lan
 
     public static bool IsBoss(string role)
     {
-        return role != null && (role.StartsWith("boss", StringComparison.OrdinalIgnoreCase) || BossesWithoutPrefix.Contains(role));
+        return role != null && Bosses.Contains(role);
     }
 
     public static bool IsScav(string role)
