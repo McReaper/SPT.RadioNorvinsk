@@ -59,11 +59,13 @@ To give the radio its face, set `persona.avatarUrl` to `https://raw.githubuserco
 
 Fika has a Discord webhook of its own, in `fika.jsonc`. Leave it off: it would announce raid starts a second time.
 
-To update, extract the new zip over the old one. Your `config/config.json` is kept.
+To update, extract the new zip over the old one. Your `config/config.json` is kept, and completed with any new settings.
 
 ## Configuration
 
-`config/config.json`, created with these defaults. Comments are allowed. The mod never rewrites the file once it exists, and reads it when the server starts.
+`config/config.json`, created with these defaults and read when the server starts. Comments are allowed.
+
+When an update brings new settings, the next start adds them to your file with their defaults and lists them in the console. Your values stay as they are, but the file's comments are lost in that rewrite. Otherwise the mod leaves the file alone.
 
 | Key | Default | Meaning |
 |---|---|---|
