@@ -82,7 +82,7 @@ internal static class ConfigLoader
         try
         {
             File.WriteAllText(path, completed.ToJsonString(Options));
-            logger.Info($"[Radio Norvinsk] Added new settings to {path}, with their defaults: {string.Join(", ", added)}.");
+            logger.OnAir($"[Radio Norvinsk] Added new settings to {path}, with their defaults: {string.Join(", ", added)}.");
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {

@@ -29,6 +29,11 @@
       <HintPath>$(ServerPath)\SemanticVersioning.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <!-- Spectre's Color type, for the radio's colour in the server console. -->
+    <Reference Include="Spectre.Console.Ansi">
+      <HintPath>$(ServerPath)\Spectre.Console.Ansi.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="SPTarkov.Common">
       <HintPath>$(ServerPath)\SPTarkov.Common.dll</HintPath>
       <Private>false</Private>

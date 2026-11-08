@@ -88,7 +88,7 @@ internal sealed class DiscordWebhook
                 using var response = await Http.PostAsJsonAsync(_url, payload, Json);
                 if (response.IsSuccessStatusCode)
                 {
-                    _logger.Info($"[Radio Norvinsk] Posted {payload.Label} ({watch.ElapsedMilliseconds} ms).");
+                    _logger.OnAir($"[Radio Norvinsk] Posted {payload.Label} ({watch.ElapsedMilliseconds} ms).");
                     return;
                 }
 

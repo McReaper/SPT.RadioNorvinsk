@@ -84,7 +84,7 @@ public class RadioNorvinskMod(
         var active = patches.Count(Enable);
         if (active == patches.Length)
         {
-            logger.Success($"[Radio Norvinsk] On the air, in '{config.Language}'.");
+            logger.OnAir($"[Radio Norvinsk] On the air, in '{config.Language}'.");
         }
         else
         {

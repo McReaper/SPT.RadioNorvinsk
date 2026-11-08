@@ -84,7 +84,7 @@ When an update brings new settings, the next start adds them to your file with t
 
 Discord keeps each avatar it has fetched for a given URL. After changing the image behind the same URL, add `?v=2` (then `?v=3`...) to the URL so Discord fetches it again.
 
-Each message is logged in the server console, with Discord's response time:
+Each message is logged in the server console in tan, with Discord's response time. Warnings and errors keep SPT's yellow and red.
 
 ```
 [Radio Norvinsk] Posted death.headEyes (Kolya) (142 ms).
