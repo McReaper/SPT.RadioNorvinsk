@@ -278,6 +278,24 @@
       "📻 Grosse nouvelle {mapAt} : {boss} ne répond plus. On doit ça à {player}, à {distance}.",
       "📻 {player} vient d'abattre {boss} {mapAt}. Ça va se savoir.",
       "📻 {boss} ne répond plus {mapAt}. {player} va pouvoir se servir dans ses poches."
+    ],
+    "endBoss": [
+      "Et au passage, {player} a eu {boss} : {details}.",
+      "On me précise aussi que {boss} ne répond plus. C'est {player} : {details}.",
+      "Avant ça, {player} avait croisé {boss}… et c'est {boss} qui est resté au sol : {details}."
+    ],
+    "endBossShort": [
+      "Et au passage, {player} a eu {boss}.",
+      "On me précise aussi que {boss} ne répond plus. C'est {player}."
+    ],
+    "endBosses": [
+      "Et au passage, {player} a eu {bosses}. Rien que ça.",
+      "On me précise aussi que {bosses} ne répondent plus. C'est {player}."
+    ],
+    "endLevel": [
+      "Et {player} passe niveau {level}.",
+      "Et avec tout ça, {player} monte niveau {level}.",
+      "Et pour finir, {player} passe niveau {level}."
     ]
   }
 }

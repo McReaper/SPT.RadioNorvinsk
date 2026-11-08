@@ -44,8 +44,9 @@ public class EventsConfig
     /// <summary>Extractions and run-throughs, in PMC raids.</summary>
     public bool Extraction { get; set; } = true;
 
+    /// <summary>Levels reached: in the player's end-of-raid message, or on their own outside a raid.</summary>
     public bool LevelUp { get; set; } = true;
 
-    /// <summary>Bosses (and the Goons) killed by a player, in PMC raids.</summary>
+    /// <summary>Bosses (the Goons and the cultist priest included) killed by a player in a PMC raid, in their end-of-raid message.</summary>
     public bool BossKill { get; set; } = true;
 }

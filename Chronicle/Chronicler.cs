@@ -15,7 +15,6 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     private const int RaidStartColor = 0x6B7B3A;
     private const int DeathColor = 0xB3261E;
     private const int MissingColor = 0x6B6B6B;
-    private const int BossKillColor = 0xD9622B;
 
     public Names Names => names;
 
@@ -59,62 +58,7 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             ("time", clock));
     }
 
-    public void Died(DeathStory death)
-    {
-        if (!events.Death)
-        {
-            return;
-        }
-
-        var killer = Names.Escape(death.Killer);
-        var facts = Facts(DeathColor,
-            ("killer", death.KillerWithRole == null ? null : Names.Escape(death.KillerWithRole)),
-            ("weapon", death.Weapon),
-            ("hit", death.Hit),
-            ("cause", death.Cause),
-            ("map", names.Map(death.Location)),
-            ("raidTime", names.Duration(death.PlayTime)));
-
-        Say($"{death.Keys[0]} ({death.Player})", death.Keys, facts,
-            ("player", Names.Escape(death.Player)),
-            ("killer", killer ?? "?"),
-            ("boss", killer ?? "?"),
-            ("weapon", death.Weapon ?? locale.Format("unknownWeapon")),
-            ("map", names.Map(death.Location)),
-            ("mapAt", names.MapAt(death.Location)),
-            ("raidTime", names.Duration(death.PlayTime)));
-    }
-
-    public void WentMissing(string player, string location, TimeSpan playTime)
-    {
-        if (!events.Death)
-        {
-            return;
-        }
-
-        var facts = Facts(MissingColor, ("map", names.Map(location)), ("raidTime", names.Duration(playTime)));
-        Say($"mia ({player})", ["mia"], facts,
-            ("player", Names.Escape(player)),
-            ("map", names.Map(location)),
-            ("mapAt", names.MapAt(location)),
-            ("raidTime", names.Duration(playTime)));
-    }
-
-    public void Extracted(string player, string location, TimeSpan playTime, bool runThrough)
-    {
-        if (!events.Extraction)
-        {
-            return;
-        }
-
-        // No facts card: the line already says who, where and how long, and the card would only repeat it.
-        Say($"extract ({player})", runThrough ? ["extractRunThrough", "extract"] : ["extract"], null,
-            ("player", Names.Escape(player)),
-            ("map", names.Map(location)),
-            ("mapAt", names.MapAt(location)),
-            ("raidTime", names.Duration(playTime)));
-    }
-
+    /// <summary>A level reached outside a raid (quest reward, trader payment). Raids announce theirs in <see cref="RaidEnded"/>.</summary>
     public void LeveledUp(string player, int level, int prestige)
     {
         if (!events.LevelUp)
@@ -122,37 +66,144 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             return;
         }
 
-        // No facts card: a level is one number. The prestige rides along with it, and only once there is one:
-        // "level 12 (prestige 1)".
-        var levelText = prestige > 0
-            ? locale.Format("levelWithPrestige", ("level", level.ToString()), ("prestige", prestige.ToString()))
-            : level.ToString();
+        // No facts card: a level is one number.
         Say($"levelUp ({player} {level}, prestige {prestige})", ["levelUp"], null,
-            ("player", Names.Escape(player)), ("level", levelText));
+            ("player", Names.Escape(player)), ("level", LevelText(level, prestige)));
     }
 
-    public void BossKilled(string player, string boss, string weapon, double? distance, string hit, string location)
+    /// <summary>
+    /// One message per player leaving a PMC raid: how it ended, then the bosses they killed and the level they
+    /// reached. When the outcome's switch is off, the first boss, or else the level, opens the message.
+    /// </summary>
+    public void RaidEnded(RaidEnd end)
     {
-        if (!events.BossKill)
+        var parts = new List<Spoken>();
+        Add(parts, Outcome(end));
+
+        var bosses = events.BossKill ? end.Bosses : [];
+        if (bosses.Count > 0 && parts.Count == 0)
+        {
+            Add(parts, BossLead(end, bosses[0]));
+            bosses = bosses.Skip(1).ToList();
+        }
+
+        if (bosses.Count == 1)
+        {
+            Add(parts, BossFollowUp(end, bosses[0]));
+        }
+        else if (bosses.Count > 1)
+        {
+            Add(parts, Speak("endBosses", null, ["endBosses"],
+                ("player", Names.Escape(end.Player)),
+                ("bosses", names.List(bosses.Select(kill => Names.Escape(kill.Boss)).ToList()))));
+        }
+
+        if (events.LevelUp && end.Level is int level)
+        {
+            var key = parts.Count == 0 ? "levelUp" : "endLevel";
+            Add(parts, Speak(key, null, [key], ("player", Names.Escape(end.Player)), ("level", LevelText(level, end.Prestige))));
+        }
+
+        if (parts.Count == 0)
         {
             return;
         }
 
-        var distanceText = distance is > 0 ? names.Distance(distance.Value) : null;
-        var facts = Facts(BossKillColor,
-            ("boss", Names.Escape(boss)),
-            ("weapon", weapon),
-            ("distance", distanceText),
-            ("hit", hit),
-            ("map", names.Map(location)));
+        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})",
+            string.Join(" ", parts.Select(part => part.Line)),
+            parts[0].Facts);
+    }
 
-        Say($"bossKill ({player}: {boss})", ["bossKill"], facts,
-            ("player", Names.Escape(player)),
-            ("boss", Names.Escape(boss)),
-            ("weapon", weapon ?? locale.Format("unknownWeapon")),
-            ("distance", distanceText ?? "?"),
-            ("map", names.Map(location)),
-            ("mapAt", names.MapAt(location)));
+    private Spoken Outcome(RaidEnd end)
+    {
+        var player = Names.Escape(end.Player);
+        var map = names.Map(end.Location);
+        var mapAt = names.MapAt(end.Location);
+        var raidTime = names.Duration(end.PlayTime);
+
+        switch (end.Outcome)
+        {
+            case RaidOutcome.Died when events.Death && end.Death != null:
+                var death = end.Death;
+                var killer = Names.Escape(death.Killer);
+                var facts = Facts(DeathColor,
+                    ("killer", death.KillerWithRole == null ? null : Names.Escape(death.KillerWithRole)),
+                    ("weapon", death.Weapon),
+                    ("hit", death.Hit),
+                    ("cause", death.Cause),
+                    ("map", map),
+                    ("raidTime", raidTime));
+                return Speak(death.Keys[0], facts, death.Keys,
+                    ("player", player),
+                    ("killer", killer ?? "?"),
+                    ("boss", killer ?? "?"),
+                    ("weapon", death.Weapon ?? locale.Format("unknownWeapon")),
+                    ("map", map),
+                    ("mapAt", mapAt),
+                    ("raidTime", raidTime));
+
+            case RaidOutcome.Missing when events.Death:
+                return Speak("mia", Facts(MissingColor, ("map", map), ("raidTime", raidTime)), ["mia"],
+                    ("player", player), ("map", map), ("mapAt", mapAt), ("raidTime", raidTime));
+
+            case RaidOutcome.Extracted or RaidOutcome.RunThrough when events.Extraction:
+                // No facts card: the line already says who, where and how long, and the card would only repeat it.
+                return Speak("extract", null,
+                    end.Outcome == RaidOutcome.RunThrough ? ["extractRunThrough", "extract"] : ["extract"],
+                    ("player", player), ("map", map), ("mapAt", mapAt), ("raidTime", raidTime));
+
+            default:
+                return null;
+        }
+    }
+
+    // A boss opening the message, when the outcome isn't announced: the full line, as it used to stand alone.
+    private Spoken BossLead(RaidEnd end, BossKill kill)
+    {
+        return Speak("bossKill", null, ["bossKill"],
+            ("player", Names.Escape(end.Player)),
+            ("boss", Names.Escape(kill.Boss)),
+            ("weapon", kill.Weapon ?? locale.Format("unknownWeapon")),
+            ("distance", Distance(kill) ?? "?"),
+            ("map", names.Map(end.Location)),
+            ("mapAt", names.MapAt(end.Location)));
+    }
+
+    // A boss after the outcome: a shorter sentence, with what is known of the shot ("RSASS, 15 m, tête").
+    private Spoken BossFollowUp(RaidEnd end, BossKill kill)
+    {
+        var details = string.Join(", ", new[] { kill.Weapon, Distance(kill), kill.Hit }.Where(text => !string.IsNullOrWhiteSpace(text)));
+        return Speak("endBoss", null, details.Length > 0 ? ["endBoss"] : ["endBossShort"],
+            ("player", Names.Escape(end.Player)),
+            ("boss", Names.Escape(kill.Boss)),
+            ("details", details));
+    }
+
+    private string Distance(BossKill kill)
+    {
+        return kill.Distance is > 0 ? names.Distance(kill.Distance.Value) : null;
+    }
+
+    // The prestige rides along with the level, and only once there is one: "12 (prestige 1)".
+    private string LevelText(int level, int prestige)
+    {
+        return prestige > 0
+            ? locale.Format("levelWithPrestige", ("level", level.ToString()), ("prestige", prestige.ToString()))
+            : level.ToString();
+    }
+
+    private Spoken Speak(string key, Embed facts, IEnumerable<string> keys, params (string Name, string Value)[] values)
+    {
+        var line = locale.Line(keys, values);
+        return line == null ? null : new Spoken(key, line, facts);
+    }
+
+    private static void Add(List<Spoken> parts, Spoken part)
+    {
+        if (part != null)
+        {
+            parts.Add(part);
+        }
     }
 
     private void Say(string label, IEnumerable<string> keys, Embed facts, params (string Name, string Value)[] values)
@@ -179,6 +230,36 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
         return embed;
     }
 }
+
+internal enum RaidOutcome
+{
+    /// <summary>Nothing to announce: left the raid, or a transit to another map.</summary>
+    None,
+    Extracted,
+    RunThrough,
+    Died,
+    Missing,
+}
+
+/// <summary>One player leaving a PMC raid, already turned into words.</summary>
+/// <param name="Death">Set when <paramref name="Outcome"/> is <see cref="RaidOutcome.Died"/>.</param>
+/// <param name="Level">The level reached in this raid, when it is new.</param>
+internal sealed record RaidEnd(
+    string Player,
+    string Location,
+    TimeSpan PlayTime,
+    RaidOutcome Outcome,
+    DeathStory Death,
+    IReadOnlyList<BossKill> Bosses,
+    int? Level,
+    int Prestige);
+
+/// <param name="Boss">The boss's name, as the listener knows it.</param>
+/// <param name="Hit">The body part, in words. Null when unknown.</param>
+internal sealed record BossKill(string Boss, string Weapon, double? Distance, string Hit);
+
+/// <summary>One sentence of a message, with the key it came from (for the log) and its facts card, if any.</summary>
+internal sealed record Spoken(string Key, string Line, Embed Facts);
 
 /// <summary>Everything the radio needs to tell one death, already turned into words.</summary>
 /// <param name="Keys">Line keys from the most specific situation to the plain "death".</param>

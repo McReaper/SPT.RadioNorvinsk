@@ -12,7 +12,7 @@ Server-side only: players install nothing.
 >
 > 📻 Head, eyes, for Kolya on Customs. The helmet couldn't do a thing.
 >
-> 📻 Big news on Customs: Reshala isn't answering anymore. We owe that to Reapy, from 87 m.
+> 📻 Reapy just extracted on Customs, after 34 min in the raid. And along the way, Reapy got Reshala: M4A1, 87 m, head.
 >
 > 📻 Dima logs off after 2h14. The bitcoin farm, meanwhile, keeps running.
 
@@ -26,9 +26,11 @@ Server-side only: players install nothing.
 | Death | A player dies in a PMC raid: killer and what they were (scav, raider, boss...), weapon, body part, map, time in raid. The cause shows when it isn't the killer's bullet (bleeding, fall, mine...). Missing in action counts as a death. | `events.death` |
 | Extraction | A player extracts from a PMC raid, run-throughs included. | `events.extraction` |
 | Level up | A player gains a level, in a raid or out of it (quest rewards). The prestige shows once the player has one. | `events.levelUp` |
-| Boss kill | A player kills a boss (Goons included) in a PMC raid: weapon, distance, body part. | `events.bossKill` |
+| Boss kill | A player kills a boss in a PMC raid: weapon, distance, body part. The Goons and the cultist priest count, the guards and Kaban's snipers don't. | `events.bossKill` |
 
-Raid starts, deaths and boss kills come with a small card of facts. Connections, extractions and level-ups are a single line. Scav raids are ignored entirely.
+A player leaving a PMC raid gets a single message: how the raid ended, then the bosses they killed and the level they reached in it. Bosses come out at that point, not when they fall: the server only learns about kills when the player leaves the raid. With the extraction or death switch off, the bosses and the level still go out together. A level reached outside a raid gets a message of its own.
+
+Raid starts and deaths (missing in action too) come with a small card of facts. The other messages are text only. Scav raids are ignored entirely.
 
 Quitting the game from its menu ends the session at once. A game that drops without quitting (crash, lost connection, slow PC) and comes back within the grace delay stays in the same session, and nothing is posted either way.
 
@@ -106,6 +108,11 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `extract`, `extractRunThrough` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
 | `levelUp` | `{player}`, `{level}` ("12", or "12 (prestige 1)" once the player has prestiged) |
 | `bossKill` | `{player}`, `{boss}`, `{weapon}`, `{distance}`, `{map}`, `{mapAt}` |
+| `endBoss`, `endBossShort` | `{player}`, `{boss}`, `{details}` ("RSASS, 15 m, head"). `endBossShort` when nothing is known of the shot. |
+| `endBosses` | `{player}`, `{bosses}` |
+| `endLevel` | `{player}`, `{level}` |
+
+An end-of-raid message opens with the outcome's line (`extract`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead.
 
 `{mapAt}` is the map with its preposition, from `mapsAt` ("on Customs", "sur Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.
 

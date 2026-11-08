@@ -278,6 +278,24 @@
       "📻 Big news {mapAt}: {boss} isn't answering anymore. We owe that to {player}, from {distance}.",
       "📻 {player} just took down {boss} {mapAt}. Word's going to get around.",
       "📻 {boss} isn't answering anymore {mapAt}. {player} can help themselves to the pockets."
+    ],
+    "endBoss": [
+      "And along the way, {player} got {boss}: {details}.",
+      "I'm also told {boss} isn't answering anymore. That was {player}: {details}.",
+      "Before that, {player} ran into {boss}… and it's {boss} who stayed down: {details}."
+    ],
+    "endBossShort": [
+      "And along the way, {player} got {boss}.",
+      "I'm also told {boss} isn't answering anymore. That was {player}."
+    ],
+    "endBosses": [
+      "And along the way, {player} got {bosses}. Nothing less.",
+      "I'm also told {bosses} aren't answering anymore. That was {player}."
+    ],
+    "endLevel": [
+      "And {player} reaches level {level}.",
+      "And with all that, {player} moves up to level {level}.",
+      "And to wrap up, {player} reaches level {level}."
     ]
   }
 }

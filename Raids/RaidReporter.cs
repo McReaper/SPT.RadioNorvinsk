@@ -90,35 +90,36 @@ internal sealed class RaidReporter(
         _locations.TryRemove(sessionId.ToString(), out var location);
         location ??= eft?.Victims?.FirstOrDefault()?.Location ?? "";
         var playTime = TimeSpan.FromSeconds(result.PlayTime ?? 0);
+        var names = chronicler.Names;
 
-        // In the order it happened: kills during the raid, then how it ended, then the experience.
-        foreach (var victim in eft?.Victims ?? [])
-        {
-            if (Names.IsBoss(victim.Role))
-            {
-                chronicler.BossKilled(player, chronicler.Names.Role(victim.Role), chronicler.Names.Weapon(victim.Weapon),
-                    victim.Distance, chronicler.Names.Hit(victim.BodyPart, null), victim.Location ?? location);
-            }
-        }
-
-        switch (result.Result)
-        {
-            case ExitStatus.KILLED:
-                chronicler.Died(Death(sessionId, player, eft, location, playTime));
-                break;
-            case ExitStatus.MISSINGINACTION:
-                chronicler.WentMissing(player, location, playTime);
-                break;
-            case ExitStatus.SURVIVED:
-            case ExitStatus.RUNNER:
-                chronicler.Extracted(player, location, playTime, result.Result == ExitStatus.RUNNER);
-                break;
-        }
+        var bosses = (eft?.Victims ?? [])
+            .Where(victim => Names.IsBoss(victim.Role))
+            .Select(victim => new BossKill(names.Role(victim.Role), names.Weapon(victim.Weapon), victim.Distance, names.Hit(victim.BodyPart, null)))
+            .ToList();
 
         // Before this request is processed, the saved profile still holds the level the raid started at.
         var saved = saveServer.ProfileExists(sessionId) ? saveServer.GetProfile(sessionId)?.CharacterData?.PmcData?.Info : null;
-        var after = profileHelper.GetLevelFromExperience(profile.Info.Experience ?? 0);
-        levels.Report(sessionId.ToString(), player, saved?.PrestigeLevel ?? profile.Info.PrestigeLevel, saved?.Level, after);
+        var prestige = saved?.PrestigeLevel ?? profile.Info.PrestigeLevel ?? 0;
+        var level = levels.Claim(sessionId.ToString(), prestige, saved?.Level, profileHelper.GetLevelFromExperience(profile.Info.Experience ?? 0));
+
+        var outcome = result.Result switch
+        {
+            ExitStatus.KILLED => RaidOutcome.Died,
+            ExitStatus.MISSINGINACTION => RaidOutcome.Missing,
+            ExitStatus.SURVIVED => RaidOutcome.Extracted,
+            ExitStatus.RUNNER => RaidOutcome.RunThrough,
+            _ => RaidOutcome.None,
+        };
+
+        chronicler.RaidEnded(new RaidEnd(
+            player,
+            location,
+            playTime,
+            outcome,
+            outcome == RaidOutcome.Died ? Death(sessionId, player, eft, location, playTime) : null,
+            bosses,
+            level,
+            prestige));
     }
 
     private DeathStory Death(MongoId sessionId, string player, EftStats eft, string location, TimeSpan playTime)
