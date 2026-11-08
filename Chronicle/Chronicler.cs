@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RadioNorvinsk.Config;
 using RadioNorvinsk.Discord;
 
@@ -89,13 +90,13 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
 
         if (bosses.Count == 1)
         {
-            Add(parts, BossFollowUp(end, bosses[0]));
+            Add(parts, BossFollowUp(end, bosses[0]), highlight: true);
         }
         else if (bosses.Count > 1)
         {
             Add(parts, Speak("endBosses", null, ["endBosses"],
                 ("player", Names.Escape(end.Player)),
-                ("bosses", names.List(bosses.Select(kill => Names.Escape(kill.Boss)).ToList()))));
+                ("bosses", names.List(bosses.Select(kill => BossName(kill.Boss)).ToList()))), highlight: true);
         }
 
         if (events.LevelUp && end.Level is int level)
@@ -109,9 +110,26 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             return;
         }
 
-        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})",
-            string.Join(" ", parts.Select(part => part.Line)),
-            parts[0].Facts);
+        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})", Compose(parts), parts[0].Facts);
+    }
+
+    // The bosses get a line of their own, set off by the "bossLine" format ("> 👑 ..."). The rest reads as one paragraph.
+    private string Compose(List<Spoken> parts)
+    {
+        var text = new StringBuilder(parts[0].Line);
+        for (var i = 1; i < parts.Count; i++)
+        {
+            if (parts[i].Highlight)
+            {
+                text.Append('\n').Append(locale.Format("bossLine", ("line", parts[i].Line)));
+            }
+            else
+            {
+                text.Append(parts[i - 1].Highlight ? "\n" : " ").Append(parts[i].Line);
+            }
+        }
+
+        return text.ToString();
     }
 
     private Spoken Outcome(RaidEnd end)
@@ -162,7 +180,7 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     {
         return Speak("bossKill", null, ["bossKill"],
             ("player", Names.Escape(end.Player)),
-            ("boss", Names.Escape(kill.Boss)),
+            ("boss", BossName(kill.Boss)),
             ("weapon", kill.Weapon ?? locale.Format("unknownWeapon")),
             ("distance", Distance(kill) ?? "?"),
             ("map", names.Map(end.Location)),
@@ -175,8 +193,14 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
         var details = string.Join(", ", new[] { kill.Weapon, Distance(kill), kill.Hit }.Where(text => !string.IsNullOrWhiteSpace(text)));
         return Speak("endBoss", null, details.Length > 0 ? ["endBoss"] : ["endBossShort"],
             ("player", Names.Escape(end.Player)),
-            ("boss", Names.Escape(kill.Boss)),
+            ("boss", BossName(kill.Boss)),
             ("details", details));
+    }
+
+    // A boss the player killed stands out: "**Shturman**".
+    private string BossName(string boss)
+    {
+        return locale.Format("bossName", ("boss", Names.Escape(boss)));
     }
 
     private string Distance(BossKill kill)
@@ -195,14 +219,14 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     private Spoken Speak(string key, Embed facts, IEnumerable<string> keys, params (string Name, string Value)[] values)
     {
         var line = locale.Line(keys, values);
-        return line == null ? null : new Spoken(key, line, facts);
+        return line == null ? null : new Spoken(key, line, facts, false);
     }
 
-    private static void Add(List<Spoken> parts, Spoken part)
+    private static void Add(List<Spoken> parts, Spoken part, bool highlight = false)
     {
         if (part != null)
         {
-            parts.Add(part);
+            parts.Add(highlight ? part with { Highlight = true } : part);
         }
     }
 
@@ -259,7 +283,8 @@ internal sealed record RaidEnd(
 internal sealed record BossKill(string Boss, string Weapon, double? Distance, string Hit);
 
 /// <summary>One sentence of a message, with the key it came from (for the log) and its facts card, if any.</summary>
-internal sealed record Spoken(string Key, string Line, Embed Facts);
+/// <param name="Highlight">Set on a line of its own, like a boss killed after the raid's outcome.</param>
+internal sealed record Spoken(string Key, string Line, Embed Facts, bool Highlight);
 
 /// <summary>Everything the radio needs to tell one death, already turned into words.</summary>
 /// <param name="Keys">Line keys from the most specific situation to the plain "death".</param>

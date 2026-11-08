@@ -7,7 +7,9 @@
     "clock": "{hours}:{minutes}",
     "listLastSeparator": " and ",
     "unknownWeapon": "who knows what",
-    "levelWithPrestige": "{level} (prestige {prestige})"
+    "levelWithPrestige": "{level} (prestige {prestige})",
+    "bossName": "**{boss}**",
+    "bossLine": "> 👑 {line}"
   },
   "labels": {
     "map": "Map",
