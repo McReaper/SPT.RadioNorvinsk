@@ -10,7 +10,7 @@ Server-side only: players install nothing.
 
 > 📻 So, I'm told there's a crowd on Customs: Reapy, Dima and Kolya. It's going to get noisy.
 >
-> 📻 Head, eyes, for Kolya on Customs. The helmet couldn't do a thing.
+> 🎯 Head, eyes, for Kolya on Customs. The helmet couldn't do a thing.
 >
 > 📻 Reapy just extracted on Customs, after 34 min in the raid.<br>
 > 👑 And along the way, Reapy got **Reshala**: M4A1, 87 m, head.
@@ -113,7 +113,7 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `endBosses` | `{player}`, `{bosses}` |
 | `endLevel` | `{player}`, `{level}` |
 
-An end-of-raid message opens with the outcome's line (`extract`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑).
+An end-of-raid message opens with the outcome's line (`extract`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑). Deaths open with 💀 instead of 📻, head-eyes deaths with 🎯, and a hit to the head reads "head 🎯" wherever it is told (`formats.headHit`).
 
 `{mapAt}` is the map with its preposition, from `mapsAt` ("on Customs", "sur Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.
 

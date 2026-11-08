@@ -9,7 +9,8 @@
     "unknownWeapon": "on ne sait trop quoi",
     "levelWithPrestige": "{level} (prestige {prestige})",
     "bossName": "**{boss}**",
-    "bossLine": "> 👑 {line}"
+    "bossLine": "> 👑 {line}",
+    "headHit": "{hit} 🎯"
   },
   "labels": {
     "map": "Map",
@@ -190,66 +191,66 @@
       "📻 {squad} partent en raid {mapAt}. Fence se tient déjà prêt à racheter le butin."
     ],
     "death": [
-      "📻 On apprend à l'instant la mort de {player} {mapAt}. C'est {killer} qui a tiré.",
-      "📻 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes.",
-      "📻 Mauvaise nouvelle {mapAt} : on vient de perdre {player}. {killer} est en cause.",
-      "📻 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes. Pour l'assurance, il faudra voir avec Prapor.",
-      "📻 {player} est hors jeu {mapAt}. {killer}, visiblement, n'était pas d'humeur à discuter.",
-      "📻 On apprend la mort de {player} {mapAt}. Le conteneur sécurisé, au moins, est sauf."
+      "💀 On apprend à l'instant la mort de {player} {mapAt}. C'est {killer} qui a tiré.",
+      "💀 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes.",
+      "💀 Mauvaise nouvelle {mapAt} : on vient de perdre {player}. {killer} est en cause.",
+      "💀 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes. Pour l'assurance, il faudra voir avec Prapor.",
+      "💀 {player} est hors jeu {mapAt}. {killer}, visiblement, n'était pas d'humeur à discuter.",
+      "💀 On apprend la mort de {player} {mapAt}. Le conteneur sécurisé, au moins, est sauf."
     ],
     "death.scav": [
-      "📻 On apprend à l'instant la mort de {player} {mapAt}. C'est un scav qui a tiré… oui, un scav. On n'en dira pas plus.",
-      "📻 {player} s'est fait avoir par un scav {mapAt}. Fence, lui, n'a pas l'air surpris.",
-      "📻 Mort de {player} {mapAt}. Un scav, avec {weapon}.",
-      "📻 Un scav a eu raison de {player} {mapAt}."
+      "💀 On apprend à l'instant la mort de {player} {mapAt}. C'est un scav qui a tiré… oui, un scav. On n'en dira pas plus.",
+      "💀 {player} s'est fait avoir par un scav {mapAt}. Fence, lui, n'a pas l'air surpris.",
+      "💀 Mort de {player} {mapAt}. Un scav, avec {weapon}.",
+      "💀 Un scav a eu raison de {player} {mapAt}."
     ],
     "death.headEyes": [
-      "📻 Tête, yeux, pour {player} {mapAt}. Le genre de nouvelle qu'on annonce sans commentaire.",
-      "📻 {player} a pris une balle dans les yeux {mapAt}. {killer} visait bien.",
-      "📻 Mort de {player} {mapAt}, d'une balle dans les yeux. Rien à faire.",
-      "📻 Tête, yeux, pour {player} {mapAt}. Le casque n'y pouvait rien."
+      "🎯 Tête, yeux, pour {player} {mapAt}. Le genre de nouvelle qu'on annonce sans commentaire.",
+      "🎯 {player} a pris une balle dans les yeux {mapAt}. {killer} visait bien.",
+      "🎯 Mort de {player} {mapAt}, d'une balle dans les yeux. Rien à faire.",
+      "🎯 Tête, yeux, pour {player} {mapAt}. Le casque n'y pouvait rien."
     ],
     "death.quick": [
-      "📻 {player} est déjà hors jeu {mapAt}, après {raidTime} de raid.",
-      "📻 Raid express pour {player} : {raidTime}, et c'est fini. Le chargement a duré plus longtemps.",
-      "📻 On apprend la mort de {player} {mapAt}, {raidTime} après le début du raid. On n'a même pas eu le temps de l'annoncer.",
-      "📻 {player} est hors jeu {mapAt} après {raidTime}. Le spawn n'a pas été clément."
+      "💀 {player} est déjà hors jeu {mapAt}, après {raidTime} de raid.",
+      "💀 Raid express pour {player} : {raidTime}, et c'est fini. Le chargement a duré plus longtemps.",
+      "💀 On apprend la mort de {player} {mapAt}, {raidTime} après le début du raid. On n'a même pas eu le temps de l'annoncer.",
+      "💀 {player} est hors jeu {mapAt} après {raidTime}. Le spawn n'a pas été clément."
     ],
     "death.boss": [
-      "📻 On apprend la mort de {player} {mapAt}. C'est {boss} qui a tiré.",
-      "📻 {player} a croisé la route de {boss} {mapAt}. Ça ne s'est pas bien terminé.",
-      "📻 Mauvaise rencontre {mapAt} : {player} contre {boss}. On connaît la suite."
+      "💀 On apprend la mort de {player} {mapAt}. C'est {boss} qui a tiré.",
+      "💀 {player} a croisé la route de {boss} {mapAt}. Ça ne s'est pas bien terminé.",
+      "💀 Mauvaise rencontre {mapAt} : {player} contre {boss}. On connaît la suite."
     ],
     "death.friendlyFire": [
-      "📻 On nous signale un tir ami {mapAt} : {killer} a abattu {player}. L'ambiance dans l'équipe, on en reparlera.",
-      "📻 Tir ami {mapAt}. {killer} sur {player}. On attend les explications.",
-      "📻 Mort de {player} {mapAt}, de la main de {killer}. Même équipe, oui.",
-      "📻 Tir ami {mapAt} : {killer} a abattu {player}. Le brassard, c'est fait pour ça."
+      "💀 On nous signale un tir ami {mapAt} : {killer} a abattu {player}. L'ambiance dans l'équipe, on en reparlera.",
+      "💀 Tir ami {mapAt}. {killer} sur {player}. On attend les explications.",
+      "💀 Mort de {player} {mapAt}, de la main de {killer}. Même équipe, oui.",
+      "💀 Tir ami {mapAt} : {killer} a abattu {player}. Le brassard, c'est fait pour ça."
     ],
     "death.suicide": [
-      "📻 Mort de {player} {mapAt}, par sa propre grenade. On rappelle que la grenade, ça se lance.",
-      "📻 {player} est hors jeu {mapAt}. Personne d'autre n'est impliqué, si vous voyez ce que je veux dire.",
-      "📻 Accident {mapAt} : {player} et sa propre grenade. Pas de témoin."
+      "💀 Mort de {player} {mapAt}, par sa propre grenade. On rappelle que la grenade, ça se lance.",
+      "💀 {player} est hors jeu {mapAt}. Personne d'autre n'est impliqué, si vous voyez ce que je veux dire.",
+      "💀 Accident {mapAt} : {player} et sa propre grenade. Pas de témoin."
     ],
     "death.bleeding": [
-      "📻 Mort de {player} {mapAt}, d'une hémorragie.",
-      "📻 {player} n'a pas pu stopper le saignement {mapAt}. Il restait pourtant un garrot Esmarch au fond du sac.",
-      "📻 Hémorragie fatale pour {player} {mapAt}."
+      "💀 Mort de {player} {mapAt}, d'une hémorragie.",
+      "💀 {player} n'a pas pu stopper le saignement {mapAt}. Il restait pourtant un garrot Esmarch au fond du sac.",
+      "💀 Hémorragie fatale pour {player} {mapAt}."
     ],
     "death.fall": [
-      "📻 Mort de {player} {mapAt}, après une chute.",
-      "📻 {player} a sauté {mapAt}. Le sol a gagné.",
-      "📻 {player} est hors jeu {mapAt}. Une chute, rien de plus."
+      "💀 Mort de {player} {mapAt}, après une chute.",
+      "💀 {player} a sauté {mapAt}. Le sol a gagné.",
+      "💀 {player} est hors jeu {mapAt}. Une chute, rien de plus."
     ],
     "death.explosion": [
-      "📻 Explosion {mapAt} : on vient de perdre {player}.",
-      "📻 Mort de {player} {mapAt}, sur une mine. La zone était pourtant signalée… enfin, je crois.",
-      "📻 {player} est hors jeu {mapAt}, après une explosion.",
-      "📻 Mort de {player} {mapAt}, sur une mine. Les panneaux « Mines », ce n'est pas de la déco."
+      "💀 Explosion {mapAt} : on vient de perdre {player}.",
+      "💀 Mort de {player} {mapAt}, sur une mine. La zone était pourtant signalée… enfin, je crois.",
+      "💀 {player} est hors jeu {mapAt}, après une explosion.",
+      "💀 Mort de {player} {mapAt}, sur une mine. Les panneaux « Mines », ce n'est pas de la déco."
     ],
     "death.environment": [
-      "📻 Mort de {player} {mapAt}. La cause exacte reste à déterminer.",
-      "📻 {player} est hors jeu {mapAt}, et personne n'a tiré. On enquête."
+      "💀 Mort de {player} {mapAt}. La cause exacte reste à déterminer.",
+      "💀 {player} est hors jeu {mapAt}, et personne n'a tiré. On enquête."
     ],
     "mia": [
       "📻 Toujours aucune nouvelle de {player} {mapAt}. Le raid est terminé, et la sortie n'a pas été trouvée.",

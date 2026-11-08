@@ -62,7 +62,10 @@ internal sealed class Names(Locale locale, LocaleService gameLocales, string lan
 
         var part = locale.Text("bodyParts", bodyPart) ?? bodyPart;
         var segment = string.IsNullOrEmpty(headSegment) ? null : locale.Text("headSegments", headSegment) ?? headSegment;
-        return segment == null ? part : $"{part}, {segment}";
+        var hit = segment == null ? part : $"{part}, {segment}";
+
+        // A hit to the head stands out wherever it is told: "tête, yeux 🎯".
+        return bodyPart == "Head" ? locale.Format("headHit", ("hit", hit)) : hit;
     }
 
     public string Cause(string damageType)

@@ -9,7 +9,8 @@
     "unknownWeapon": "who knows what",
     "levelWithPrestige": "{level} (prestige {prestige})",
     "bossName": "**{boss}**",
-    "bossLine": "> 👑 {line}"
+    "bossLine": "> 👑 {line}",
+    "headHit": "{hit} 🎯"
   },
   "labels": {
     "map": "Map",
@@ -190,66 +191,66 @@
       "📻 {squad} head into a raid {mapAt}. Fence is already standing by to buy the loot."
     ],
     "death": [
-      "📻 We've just learned that {player} died {mapAt}. {killer} pulled the trigger.",
-      "📻 Well… {player} won't be coming home. It happened {mapAt}, a few seconds ago.",
-      "📻 Bad news {mapAt}: we've just lost {player}. {killer} is responsible.",
-      "📻 Well… {player} won't be coming home. It happened {mapAt}, a few seconds ago. As for the insurance, take it up with Prapor.",
-      "📻 {player} is out {mapAt}. {killer}, clearly, wasn't in the mood to chat.",
-      "📻 We've learned that {player} died {mapAt}. The secure container, at least, is safe."
+      "💀 We've just learned that {player} died {mapAt}. {killer} pulled the trigger.",
+      "💀 Well… {player} won't be coming home. It happened {mapAt}, a few seconds ago.",
+      "💀 Bad news {mapAt}: we've just lost {player}. {killer} is responsible.",
+      "💀 Well… {player} won't be coming home. It happened {mapAt}, a few seconds ago. As for the insurance, take it up with Prapor.",
+      "💀 {player} is out {mapAt}. {killer}, clearly, wasn't in the mood to chat.",
+      "💀 We've learned that {player} died {mapAt}. The secure container, at least, is safe."
     ],
     "death.scav": [
-      "📻 We've just learned that {player} died {mapAt}. A scav pulled the trigger… yes, a scav. We'll leave it there.",
-      "📻 {player} got caught by a scav {mapAt}. Fence doesn't look surprised.",
-      "📻 {player} is down {mapAt}. A scav, with {weapon}.",
-      "📻 A scav got the better of {player} {mapAt}."
+      "💀 We've just learned that {player} died {mapAt}. A scav pulled the trigger… yes, a scav. We'll leave it there.",
+      "💀 {player} got caught by a scav {mapAt}. Fence doesn't look surprised.",
+      "💀 {player} is down {mapAt}. A scav, with {weapon}.",
+      "💀 A scav got the better of {player} {mapAt}."
     ],
     "death.headEyes": [
-      "📻 Head, eyes, for {player} {mapAt}. The kind of news we announce without comment.",
-      "📻 {player} took one to the eyes {mapAt}. {killer} was aiming well.",
-      "📻 {player} died {mapAt}, a bullet to the eyes. Nothing to be done.",
-      "📻 Head, eyes, for {player} {mapAt}. The helmet couldn't do a thing."
+      "🎯 Head, eyes, for {player} {mapAt}. The kind of news we announce without comment.",
+      "🎯 {player} took one to the eyes {mapAt}. {killer} was aiming well.",
+      "🎯 {player} died {mapAt}, a bullet to the eyes. Nothing to be done.",
+      "🎯 Head, eyes, for {player} {mapAt}. The helmet couldn't do a thing."
     ],
     "death.quick": [
-      "📻 {player} is already out {mapAt}, after {raidTime} in the raid.",
-      "📻 Express raid for {player}: {raidTime}, and it's over. The loading took longer.",
-      "📻 We've learned that {player} died {mapAt}, {raidTime} into the raid. We barely had time to announce it.",
-      "📻 {player} is out {mapAt} after {raidTime}. The spawn wasn't kind."
+      "💀 {player} is already out {mapAt}, after {raidTime} in the raid.",
+      "💀 Express raid for {player}: {raidTime}, and it's over. The loading took longer.",
+      "💀 We've learned that {player} died {mapAt}, {raidTime} into the raid. We barely had time to announce it.",
+      "💀 {player} is out {mapAt} after {raidTime}. The spawn wasn't kind."
     ],
     "death.boss": [
-      "📻 We've learned that {player} died {mapAt}. {boss} pulled the trigger.",
-      "📻 {player} crossed paths with {boss} {mapAt}. It didn't end well.",
-      "📻 Bad encounter {mapAt}: {player} against {boss}. You know the rest."
+      "💀 We've learned that {player} died {mapAt}. {boss} pulled the trigger.",
+      "💀 {player} crossed paths with {boss} {mapAt}. It didn't end well.",
+      "💀 Bad encounter {mapAt}: {player} against {boss}. You know the rest."
     ],
     "death.friendlyFire": [
-      "📻 We're getting reports of friendly fire {mapAt}: {killer} shot {player}. Team spirit, we'll talk about later.",
-      "📻 Friendly fire {mapAt}. {killer} on {player}. We're waiting for an explanation.",
-      "📻 {player} died {mapAt}, at the hands of {killer}. Same team, yes.",
-      "📻 Friendly fire {mapAt}: {killer} shot {player}. That's what armbands are for."
+      "💀 We're getting reports of friendly fire {mapAt}: {killer} shot {player}. Team spirit, we'll talk about later.",
+      "💀 Friendly fire {mapAt}. {killer} on {player}. We're waiting for an explanation.",
+      "💀 {player} died {mapAt}, at the hands of {killer}. Same team, yes.",
+      "💀 Friendly fire {mapAt}: {killer} shot {player}. That's what armbands are for."
     ],
     "death.suicide": [
-      "📻 {player} died {mapAt}, by their own grenade. A reminder: grenades are for throwing.",
-      "📻 {player} is out {mapAt}. Nobody else was involved, if you know what I mean.",
-      "📻 Accident {mapAt}: {player} and their own grenade. No witnesses."
+      "💀 {player} died {mapAt}, by their own grenade. A reminder: grenades are for throwing.",
+      "💀 {player} is out {mapAt}. Nobody else was involved, if you know what I mean.",
+      "💀 Accident {mapAt}: {player} and their own grenade. No witnesses."
     ],
     "death.bleeding": [
-      "📻 {player} died {mapAt}, from blood loss.",
-      "📻 {player} couldn't stop the bleeding {mapAt}. There was an Esmarch at the bottom of the bag, too.",
-      "📻 Fatal bleed for {player} {mapAt}."
+      "💀 {player} died {mapAt}, from blood loss.",
+      "💀 {player} couldn't stop the bleeding {mapAt}. There was an Esmarch at the bottom of the bag, too.",
+      "💀 Fatal bleed for {player} {mapAt}."
     ],
     "death.fall": [
-      "📻 {player} died {mapAt}, after a fall.",
-      "📻 {player} jumped {mapAt}. The ground won.",
-      "📻 {player} is out {mapAt}. A fall, nothing more."
+      "💀 {player} died {mapAt}, after a fall.",
+      "💀 {player} jumped {mapAt}. The ground won.",
+      "💀 {player} is out {mapAt}. A fall, nothing more."
     ],
     "death.explosion": [
-      "📻 Explosion {mapAt}: we've just lost {player}.",
-      "📻 {player} died {mapAt}, on a mine. The area was marked… I think.",
-      "📻 {player} is out {mapAt}, after an explosion.",
-      "📻 {player} died {mapAt}, on a mine. Those \"Mines\" signs aren't decoration."
+      "💀 Explosion {mapAt}: we've just lost {player}.",
+      "💀 {player} died {mapAt}, on a mine. The area was marked… I think.",
+      "💀 {player} is out {mapAt}, after an explosion.",
+      "💀 {player} died {mapAt}, on a mine. Those \"Mines\" signs aren't decoration."
     ],
     "death.environment": [
-      "📻 {player} died {mapAt}. The exact cause is yet to be determined.",
-      "📻 {player} is out {mapAt}, and nobody fired a shot. We're looking into it."
+      "💀 {player} died {mapAt}. The exact cause is yet to be determined.",
+      "💀 {player} is out {mapAt}, and nobody fired a shot. We're looking into it."
     ],
     "mia": [
       "📻 Still no news from {player} {mapAt}. The raid is over, and the exit was never found.",
