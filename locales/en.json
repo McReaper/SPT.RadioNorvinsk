@@ -7,7 +7,7 @@
     "clock": "{hours}:{minutes}",
     "listLastSeparator": " and ",
     "unknownWeapon": "who knows what",
-    "noPrestige": "None"
+    "levelWithPrestige": "{level} (prestige {prestige})"
   },
   "labels": {
     "map": "Map",
@@ -19,8 +19,6 @@
     "hit": "Hit",
     "cause": "Cause",
     "raidTime": "Time in raid",
-    "level": "Level",
-    "prestige": "Prestige",
     "boss": "Boss",
     "distance": "Distance",
     "factoryDay": "day",

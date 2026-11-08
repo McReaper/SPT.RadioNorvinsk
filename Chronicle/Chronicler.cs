@@ -15,8 +15,6 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     private const int RaidStartColor = 0x6B7B3A;
     private const int DeathColor = 0xB3261E;
     private const int MissingColor = 0x6B6B6B;
-    private const int ExtractionColor = 0x2E7D32;
-    private const int LevelUpColor = 0xC9A227;
     private const int BossKillColor = 0xD9622B;
 
     public Names Names => names;
@@ -109,8 +107,8 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             return;
         }
 
-        var facts = Facts(ExtractionColor, ("map", names.Map(location)), ("raidTime", names.Duration(playTime)));
-        Say($"extract ({player})", runThrough ? ["extractRunThrough", "extract"] : ["extract"], facts,
+        // No facts card: the line already says who, where and how long, and the card would only repeat it.
+        Say($"extract ({player})", runThrough ? ["extractRunThrough", "extract"] : ["extract"], null,
             ("player", Names.Escape(player)),
             ("map", names.Map(location)),
             ("mapAt", names.MapAt(location)),
@@ -124,11 +122,13 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             return;
         }
 
-        // Prestige 0 is most players: "none" says so, where a bare 0 would read like a missing value.
-        var prestigeText = prestige > 0 ? prestige.ToString() : locale.Format("noPrestige");
-        var facts = Facts(LevelUpColor, ("level", level.ToString()), ("prestige", prestigeText));
-        Say($"levelUp ({player} {level}, prestige {prestige})", ["levelUp"], facts,
-            ("player", Names.Escape(player)), ("level", level.ToString()), ("prestige", prestigeText));
+        // No facts card: a level is one number. The prestige rides along with it, and only once there is one:
+        // "level 12 (prestige 1)".
+        var levelText = prestige > 0
+            ? locale.Format("levelWithPrestige", ("level", level.ToString()), ("prestige", prestige.ToString()))
+            : level.ToString();
+        Say($"levelUp ({player} {level}, prestige {prestige})", ["levelUp"], null,
+            ("player", Names.Escape(player)), ("level", levelText));
     }
 
     public void BossKilled(string player, string boss, string weapon, double? distance, string hit, string location)
