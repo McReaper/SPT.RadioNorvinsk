@@ -68,7 +68,7 @@ public class RadioNorvinskMod(
         PatchContext.Logger = logger;
         PatchContext.Sessions = new SessionTracker(grace, chronicler, saveServer, logger);
         PatchContext.Levels = levels;
-        PatchContext.Raids = new RaidReporter(chronicler, levels, saveServer, profileHelper, weatherHelper);
+        PatchContext.Raids = new RaidReporter(chronicler, levels, new ExtractionGroups(chronicler, logger), saveServer, profileHelper, weatherHelper);
 
         AbstractPatch[] patches =
         [
@@ -78,6 +78,7 @@ public class RadioNorvinskMod(
             new LocalRaidStartPatch(),
             new LocalRaidEndPatch(),
             new MatchStatusPatch(),
+            new MatchDeletedPatch(),
             new LevelRecalculatedPatch(),
         ];
 

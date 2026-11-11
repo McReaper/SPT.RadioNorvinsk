@@ -269,6 +269,18 @@
       "📻 Aller-retour express pour {player} {mapAt}. Run-through, comme on dit.",
       "📻 {player} entre et ressort aussitôt {mapAt}. Visite éclair."
     ],
+    "extractSquad": [
+      "📻 {squad} viennent de s'extraire {mapAt}, après {raidTime} de raid.",
+      "📻 Extraction réussie pour {squad} {mapAt}.",
+      "📻 Bonne nouvelle {mapAt} : {squad} rentrent à la maison.",
+      "📻 Extraction pour {squad} {mapAt}, après {raidTime}. Le flea market attend la marchandise.",
+      "📻 {squad} quittent la zone {mapAt}, en un seul morceau. C'est déjà pas mal.",
+      "📻 {count} extractions {mapAt} : {squad}. Les stashs vont encore déborder."
+    ],
+    "extractSquadRunThrough": [
+      "📻 Aller-retour express pour {squad} {mapAt}. Run-through, comme on dit.",
+      "📻 {squad} entrent et ressortent aussitôt {mapAt}. Visite éclair."
+    ],
     "levelUp": [
       "📻 Petite info en passant : {player} passe niveau {level}.",
       "📻 {player} atteint le niveau {level}. Prapor a sûrement déjà une nouvelle mission à lui confier.",

@@ -81,7 +81,81 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
         var parts = new List<Spoken>();
         Add(parts, Outcome(end));
 
-        var bosses = events.BossKill ? end.Bosses : [];
+        if (events.BossKill)
+        {
+            AddBosses(parts, end);
+        }
+
+        if (events.LevelUp)
+        {
+            AddLevel(parts, end);
+        }
+
+        if (parts.Count == 0)
+        {
+            return;
+        }
+
+        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})", Compose(parts), parts[0].Facts);
+    }
+
+    /// <summary>Whether extractions are announced: when they aren't, nothing is worth holding them back for.</summary>
+    public bool AnnouncesExtractions => events.Extraction;
+
+    /// <summary>
+    /// The players who extracted from the same raid, in the order they left: one line for all of them, then
+    /// everyone's bosses, then everyone's levels. A player who extracted alone gets their own end-of-raid message.
+    /// </summary>
+    public void SquadExtracted(IReadOnlyList<RaidEnd> ends)
+    {
+        var parts = new List<Spoken>();
+        if (ends.Count > 1)
+        {
+            var location = ends[0].Location;
+            Add(parts, Speak("extractSquad", null,
+                ends.All(end => end.Outcome == RaidOutcome.RunThrough) ? ["extractSquadRunThrough", "extractSquad"] : ["extractSquad"],
+                ("squad", names.List(ends.Select(end => Names.Escape(end.Player)).ToList())),
+                ("count", ends.Count.ToString()),
+                ("map", names.Map(location)),
+                ("mapAt", names.MapAt(location)),
+                ("raidTime", names.Duration(ends.Max(end => end.PlayTime)))));
+        }
+
+        // Alone, or no squad line in any locale: everyone gets their own message.
+        if (parts.Count == 0)
+        {
+            foreach (var end in ends)
+            {
+                RaidEnded(end);
+            }
+
+            return;
+        }
+
+        if (events.BossKill)
+        {
+            foreach (var end in ends)
+            {
+                AddBosses(parts, end);
+            }
+        }
+
+        if (events.LevelUp)
+        {
+            foreach (var end in ends)
+            {
+                AddLevel(parts, end);
+            }
+        }
+
+        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({string.Join(", ", ends.Select(end => end.Player))})",
+            Compose(parts), null);
+    }
+
+    // The bosses the player killed. When nothing comes before them, the first one opens the message.
+    private void AddBosses(List<Spoken> parts, RaidEnd end)
+    {
+        var bosses = end.Bosses;
         if (bosses.Count > 0 && parts.Count == 0)
         {
             Add(parts, BossLead(end, bosses[0]));
@@ -98,19 +172,16 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
                 ("player", Names.Escape(end.Player)),
                 ("bosses", names.List(bosses.Select(kill => BossName(kill.Boss)).ToList()))), highlight: true);
         }
+    }
 
-        if (events.LevelUp && end.Level is int level)
+    // The level reached in the raid, when it is new. When nothing comes before it, it opens the message.
+    private void AddLevel(List<Spoken> parts, RaidEnd end)
+    {
+        if (end.Level is int level)
         {
             var key = parts.Count == 0 ? "levelUp" : "endLevel";
             Add(parts, Speak(key, null, [key], ("player", Names.Escape(end.Player)), ("level", LevelText(level, end.Prestige))));
         }
-
-        if (parts.Count == 0)
-        {
-            return;
-        }
-
-        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})", Compose(parts), parts[0].Facts);
     }
 
     // The bosses get a line of their own, set off by the "bossLine" format ("> 👑 ..."). The rest reads as one paragraph.

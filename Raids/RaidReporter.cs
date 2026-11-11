@@ -23,6 +23,7 @@ namespace RadioNorvinsk.Raids;
 internal sealed class RaidReporter(
     Chronicler chronicler,
     LevelTracker levels,
+    ExtractionGroups extractions,
     SaveServer saveServer,
     ProfileHelper profileHelper,
     WeatherHelper weatherHelper)
@@ -60,9 +61,11 @@ internal sealed class RaidReporter(
             return;
         }
 
+        var players = match.Players.ToArray();
+        extractions.Started(matchId.ToString(), players.Select(player => player.Key.ToString()));
+
         var location = match.RaidConfig?.Location ?? "";
-        var squad = match.Players
-            .ToArray()
+        var squad = players
             .Where(player => !player.Value.IsSpectator)
             .Select(player => NicknameOf(player.Key))
             .Where(nickname => !string.IsNullOrEmpty(nickname))
@@ -74,6 +77,13 @@ internal sealed class RaidReporter(
         }
 
         chronicler.RaidStarted(location, Clock(location, match.Time), squad);
+    }
+
+    /// <summary>Fika deletes a match once its host has left, which it can only do last: everybody is out.</summary>
+    public void OnMatchDeleted(MongoId matchId)
+    {
+        _announcedMatches.TryRemove(matchId.ToString(), out _);
+        extractions.Ended(matchId.ToString());
     }
 
     public void OnLocalRaidEnd(MongoId sessionId, EndLocalRaidRequestData request)
@@ -111,7 +121,7 @@ internal sealed class RaidReporter(
             _ => RaidOutcome.None,
         };
 
-        chronicler.RaidEnded(new RaidEnd(
+        var end = new RaidEnd(
             player,
             location,
             playTime,
@@ -119,7 +129,16 @@ internal sealed class RaidReporter(
             outcome == RaidOutcome.Died ? Death(sessionId, player, eft, location, playTime) : null,
             bosses,
             level,
-            prestige));
+            prestige);
+
+        // A squad's extractions wait for the end of their raid, to go out together.
+        if (outcome is RaidOutcome.Extracted or RaidOutcome.RunThrough && chronicler.AnnouncesExtractions
+            && extractions.Hold(sessionId.ToString(), end))
+        {
+            return;
+        }
+
+        chronicler.RaidEnded(end);
     }
 
     private DeathStory Death(MongoId sessionId, string player, EftStats eft, string location, TimeSpan playTime)

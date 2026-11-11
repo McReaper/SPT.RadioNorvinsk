@@ -42,6 +42,24 @@ public class LocalRaidEndPatch : AbstractPatch
     }
 }
 
+/// <summary>
+/// Fika deletes a match when its host leaves the raid, which the host can only do once everybody else is out,
+/// or when the match times out.
+/// </summary>
+public class MatchDeletedPatch : AbstractPatch
+{
+    protected override MethodBase GetTargetMethod()
+    {
+        return AccessTools.Method(typeof(MatchService), nameof(MatchService.DeleteMatch));
+    }
+
+    [PatchPrefix]
+    public static void Prefix(MongoId matchId)
+    {
+        PatchContext.Guard("Match end", () => PatchContext.Raids?.OnMatchDeleted(matchId));
+    }
+}
+
 /// <summary>The raid host's game reports the match status to Fika: IN_GAME once the raid is running.</summary>
 public class MatchStatusPatch : AbstractPatch
 {

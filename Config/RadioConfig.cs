@@ -41,7 +41,7 @@ public class EventsConfig
     /// <summary>Deaths and missing in action, in PMC raids.</summary>
     public bool Death { get; set; } = true;
 
-    /// <summary>Extractions and run-throughs, in PMC raids.</summary>
+    /// <summary>Extractions and run-throughs, in PMC raids: one message per raid, once it is over.</summary>
     public bool Extraction { get; set; } = true;
 
     /// <summary>Levels reached: in the player's end-of-raid message, or on their own outside a raid.</summary>

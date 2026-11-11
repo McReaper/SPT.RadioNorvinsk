@@ -25,11 +25,13 @@ Server-side only: players install nothing.
 | Disconnection | A player quits the game, or a game that dropped stays gone for `reconnectGraceMinutes`. The message gives the session's length. | `events.disconnect` |
 | Raid start | A PMC raid starts: one message for the whole Fika squad, with the map and the in-raid time. | `events.raidStart` |
 | Death | A player dies in a PMC raid: killer and what they were (scav, raider, boss...), weapon, body part, map, time in raid. The cause shows when it isn't the killer's bullet (bleeding, fall, mine...). Missing in action counts as a death. | `events.death` |
-| Extraction | A player extracts from a PMC raid, run-throughs included. | `events.extraction` |
+| Extraction | Players extract from a PMC raid, run-throughs included: one message for everyone who got out, once the raid is over. | `events.extraction` |
 | Level up | A player gains a level, in a raid or out of it (quest rewards). The prestige shows once the player has one. | `events.levelUp` |
 | Boss kill | A player kills a boss in a PMC raid: weapon, distance, body part. The Goons and the cultist priest count, the guards and Kaban's snipers don't. | `events.bossKill` |
 
 A player leaving a PMC raid gets a single message: how the raid ended, then the bosses they killed and the level they reached in it. Bosses come out at that point, not when they fall: the server only learns about kills when the player leaves the raid. With the extraction or death switch off, the bosses and the level still go out together. A level reached outside a raid gets a message of its own.
+
+Deaths go out as they happen. Extractions wait for the end of the raid, when the Fika host leaves (it can only leave once everyone else is out), and come out as one message for the whole squad: who got out, then each one's bosses and level. A player who got out alone gets their own message.
 
 Raid starts and deaths (missing in action too) come with a small card of facts. The other messages are text only. Scav raids are ignored entirely.
 
@@ -107,13 +109,14 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `death`, `death.<situation>` | `{player}`, `{killer}`, `{boss}`, `{weapon}`, `{map}`, `{mapAt}`, `{raidTime}` |
 | `mia` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
 | `extract`, `extractRunThrough` | `{player}`, `{map}`, `{mapAt}`, `{raidTime}` |
+| `extractSquad`, `extractSquadRunThrough` | `{squad}`, `{count}`, `{map}`, `{mapAt}`, `{raidTime}` (the longest). `extractSquadRunThrough` when every one of them ran through. |
 | `levelUp` | `{player}`, `{level}` ("12", or "12 (prestige 1)" once the player has prestiged) |
 | `bossKill` | `{player}`, `{boss}`, `{weapon}`, `{distance}`, `{map}`, `{mapAt}` |
 | `endBoss`, `endBossShort` | `{player}`, `{boss}`, `{details}` ("RSASS, 15 m, head"). `endBossShort` when nothing is known of the shot. |
 | `endBosses` | `{player}`, `{bosses}` |
 | `endLevel` | `{player}`, `{level}` |
 
-An end-of-raid message opens with the outcome's line (`extract`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑). Deaths open with 💀 instead of 📻, head-eyes deaths with 🎯, and a hit to the head reads "head 🎯" wherever it is told (`formats.headHit`).
+An end-of-raid message opens with the outcome's line (`extract`, `extractSquad`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑). Deaths open with 💀 instead of 📻, head-eyes deaths with 🎯, and a hit to the head reads "head 🎯" wherever it is told (`formats.headHit`).
 
 `{mapAt}` is the map with its preposition, from `mapsAt` ("on Customs", "sur Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.
 

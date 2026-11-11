@@ -269,6 +269,18 @@
       "📻 In and out for {player} {mapAt}. A run-through, as they say.",
       "📻 {player} goes in and right back out {mapAt}. A flying visit."
     ],
+    "extractSquad": [
+      "📻 {squad} just extracted {mapAt}, after {raidTime} in the raid.",
+      "📻 Successful extraction for {squad} {mapAt}.",
+      "📻 Good news {mapAt}: {squad} are heading home.",
+      "📻 Extraction for {squad} {mapAt}, after {raidTime}. The flea market awaits the goods.",
+      "📻 {squad} leave the zone {mapAt}, in one piece. That's already something.",
+      "📻 {count} extractions {mapAt}: {squad}. The stashes are going to overflow again."
+    ],
+    "extractSquadRunThrough": [
+      "📻 In and out for {squad} {mapAt}. A run-through, as they say.",
+      "📻 {squad} go in and right back out {mapAt}. A flying visit."
+    ],
     "levelUp": [
       "📻 Quick note in passing: {player} reaches level {level}.",
       "📻 {player} hits level {level}. Prapor surely has a new job lined up already.",
