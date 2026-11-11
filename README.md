@@ -12,8 +12,9 @@ Server-side only: players install nothing.
 >
 > 🎯 Head, eyes, for Kolya on Customs. The helmet couldn't do a thing.
 >
-> 📻 Reapy just extracted on Customs, after 34 min in the raid.<br>
-> 👑 And along the way, Reapy got **Reshala**: M4A1, 87 m, head.
+> 📻 Reapy and Dima just extracted on Customs, after 34 min in the raid.<br>
+> 👑 And along the way, Reapy got **Reshala**: M4A1, 87 m, head 🎯.<br>
+> And Dima reaches level 23.
 >
 > 📻 Dima logs off after 2h14. The bitcoin farm, meanwhile, keeps running.
 
@@ -29,15 +30,17 @@ Server-side only: players install nothing.
 | Level up | A player gains a level, in a raid or out of it (quest rewards). The prestige shows once the player has one. | `events.levelUp` |
 | Boss kill | A player kills a boss in a PMC raid: weapon, distance, body part. The Goons and the cultist priest count, the guards and Kaban's snipers don't. | `events.bossKill` |
 
-A player leaving a PMC raid gets a single message: how the raid ended, then the bosses they killed and the level they reached in it. Bosses come out at that point, not when they fall: the server only learns about kills when the player leaves the raid. With the extraction or death switch off, the bosses and the level still go out together. A level reached outside a raid gets a message of its own.
+A player's raid is told in one message: how it ended, then the bosses they killed and the level they reached in it. Bosses come out at that point, not when they fall: the server only learns about kills when the player leaves the raid.
 
-Deaths go out as they happen. Extractions wait for the end of the raid, when the Fika host leaves (it can only leave once everyone else is out), and come out as one message for the whole squad: who got out, then each one's bosses and level. A player who got out alone gets their own message.
+Deaths go out as they happen. Extractions wait for the end of the raid, when the Fika host leaves (Fika only lets the host leave once everyone else is out), and the squad gets a single message: who got out, then each one's bosses and level. A player who got out alone gets their own message.
+
+With the extraction or death switch off, the bosses and the level still go out, in a message of their own. A level reached outside a raid gets a message of its own too.
 
 Raid starts and deaths (missing in action too) come with a small card of facts. The other messages are text only. Scav raids are ignored entirely.
 
 Quitting the game from its menu ends the session at once. A game that drops without quitting (crash, lost connection, slow PC) and comes back within the grace delay stays in the same session, and nothing is posted either way.
 
-Deaths get lines picked for the situation when one applies, from the most specific to the plain one: suicide (own grenade), friendly fire, fall, bleeding, explosion, killed by a boss, within the first 2 minutes, head-eyes, by a scav.
+Deaths get lines picked for the situation when one applies, from the most specific to the plain one: suicide (own grenade), friendly fire, fall, bleeding, explosion, a cause nobody fired (dehydration, radiation...), killed by a boss, within the first 2 minutes, head-eyes, by a scav.
 
 **No pings, no notifications.** Every message goes out with Discord's *suppress notifications* flag and an empty `allowed_mentions`. Nobody gets pinged, not even by a nickname like `@everyone`.
 
@@ -112,7 +115,7 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `extractSquad`, `extractSquadRunThrough` | `{squad}`, `{count}`, `{map}`, `{mapAt}`, `{raidTime}` (the longest). `extractSquadRunThrough` when every one of them ran through. |
 | `levelUp` | `{player}`, `{level}` ("12", or "12 (prestige 1)" once the player has prestiged) |
 | `bossKill` | `{player}`, `{boss}`, `{weapon}`, `{distance}`, `{map}`, `{mapAt}` |
-| `endBoss`, `endBossShort` | `{player}`, `{boss}`, `{details}` ("RSASS, 15 m, head"). `endBossShort` when nothing is known of the shot. |
+| `endBoss`, `endBossShort` | `{player}`, `{boss}`, `{details}` ("RSASS, 15 m, head 🎯"). `endBossShort` when nothing is known of the shot. |
 | `endBosses` | `{player}`, `{bosses}` |
 | `endLevel` | `{player}`, `{level}` |
 
