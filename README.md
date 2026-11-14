@@ -28,7 +28,7 @@ Server-side only: players install nothing.
 | Death | A player dies in a PMC raid: killer and what they were (scav, raider, boss...), weapon, body part, map, time in raid. The cause shows when it isn't the killer's bullet (bleeding, fall, mine...). Missing in action counts as a death. | `events.death` |
 | Extraction | Players extract from a PMC raid, run-throughs included: one message for everyone who got out, once the raid is over. | `events.extraction` |
 | Level up | A player gains a level, in a raid or out of it (quest rewards). The prestige shows once the player has one. | `events.levelUp` |
-| Boss kill | A player kills a boss in a PMC raid: weapon, distance, body part. The Goons and the cultist priest count, the guards and Kaban's snipers don't. | `events.bossKill` |
+| Boss kill | A player kills a boss in a PMC raid: weapon, distance, body part. The Goons and the cultist priest count, the guards and Kaban's snipers don't. With TacticalToaster's Black Division mod, Wedge and every Black Division operator count too, each operator under their callsign: "Vector (Black Division)". | `events.bossKill` |
 
 A player's raid is told in one message: how it ended, then the bosses they killed and the level they reached in it. Bosses come out at that point, not when they fall: the server only learns about kills when the player leaves the raid.
 

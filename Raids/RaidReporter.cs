@@ -104,7 +104,7 @@ internal sealed class RaidReporter(
 
         var bosses = (eft?.Victims ?? [])
             .Where(victim => Names.IsBoss(victim.Role))
-            .Select(victim => new BossKill(names.Role(victim.Role), names.Weapon(victim.Weapon), victim.Distance, names.Hit(victim.BodyPart, null)))
+            .Select(victim => new BossKill(names.Boss(victim.Role, victim.Name), names.Weapon(victim.Weapon), victim.Distance, names.Hit(victim.BodyPart, null)))
             .ToList();
 
         // Before this request is processed, the saved profile still holds the level the raid started at.
@@ -207,7 +207,7 @@ internal sealed class RaidReporter(
         keys.Add("death");
 
         // Bosses' bot names are random Cyrillic: the boss's own name tells the story better.
-        var killer = Names.IsBoss(role) ? names.Role(role) : aggressor?.Name;
+        var killer = Names.IsBoss(role) ? names.Boss(role, aggressor?.Name) : aggressor?.Name;
         var killerWithRole = self || aggressor == null ? null
             : teammate || Names.IsBoss(role) ? killer
             : $"{killer} ({names.Role(role)})";

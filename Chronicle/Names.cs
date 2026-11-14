@@ -11,11 +11,20 @@ internal sealed class Names(Locale locale, LocaleService gameLocales, string lan
 {
     // Listed one by one: the "boss" prefix also covers Kaban's snipers (bossBoarSniper) and a test role, while the
     // Goons and the cultist priest don't carry it. Holiday-event roles are left out.
+    // Wedge and his Black Division come from TacticalToaster's Black Division mod (BlackDivServer).
     private static readonly HashSet<string> Bosses = new(StringComparer.OrdinalIgnoreCase)
     {
         "bossBoar", "bossBully", "bossGluhar", "bossKilla", "bossKillaAgro", "bossKnight", "bossKojaniy",
         "bossKolontay", "bossPartisan", "bossSanitar", "bossTagilla", "bossTagillaAgro", "bossZryachiy",
         "followerBigPipe", "followerBirdEye", "sectantPriest",
+        "bossWedge", "blackDivLead", "blackDivAssault", "blackDivBreacher", "blackDivSupport", "blackDivIb",
+    };
+
+    // Black Division operators come in squads of one role, each under a callsign of their own ("Vector"):
+    // the callsign tells them apart, where the role alone would read "Black Division, Black Division".
+    private static readonly HashSet<string> CallsignBosses = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "blackDivLead", "blackDivAssault", "blackDivBreacher", "blackDivSupport", "blackDivIb",
     };
 
     private static readonly HashSet<string> ScavRoles = new(StringComparer.OrdinalIgnoreCase)
@@ -50,6 +59,17 @@ internal sealed class Names(Locale locale, LocaleService gameLocales, string lan
     public string Role(string role)
     {
         return role == null ? null : locale.Text("roles", role) ?? role;
+    }
+
+    /// <summary>
+    /// A boss as the listener knows them: "Reshala" from the role (their bot names are random Cyrillic), or
+    /// "Vector (Black Division)" for an operator who goes by a callsign.
+    /// </summary>
+    public string Boss(string role, string botName)
+    {
+        return CallsignBosses.Contains(role ?? "") && !string.IsNullOrWhiteSpace(botName)
+            ? $"{botName} ({Role(role)})"
+            : Role(role);
     }
 
     /// <summary>"tête, yeux", "thorax". Null when the game didn't say.</summary>
