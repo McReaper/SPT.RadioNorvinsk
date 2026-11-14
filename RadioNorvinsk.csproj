@@ -5,7 +5,7 @@
     <AssemblyName>RadioNorvinsk</AssemblyName>
     <RootNamespace>RadioNorvinsk</RootNamespace>
     <Nullable>disable</Nullable>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <LangVersion>latest</LangVersion>
     <Deterministic>true</Deterministic>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
