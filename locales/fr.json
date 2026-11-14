@@ -10,7 +10,8 @@
     "levelWithPrestige": "{level} (prestige {prestige})",
     "bossName": "**{boss}**",
     "bossLine": "> 👑 {line}",
-    "headHit": "{hit} 🎯"
+    "headHit": "{hit} 🎯",
+    "raidReview": "🎞️ [Revoir le raid sur Raid Review](<{url}>)"
   },
   "labels": {
     "map": "Map",

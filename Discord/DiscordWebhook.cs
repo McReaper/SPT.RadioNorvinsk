@@ -35,7 +35,8 @@ internal sealed class DiscordWebhook
     private readonly ISptLogger<RadioNorvinskMod> _logger;
 
     // While Discord is unreachable, the oldest messages give way to new ones instead of piling up.
-    private readonly Channel<WebhookPayload> _queue = Channel.CreateBounded<WebhookPayload>(
+    // One reader, in order: an edit always comes after the post of the message it edits is settled.
+    private readonly Channel<Delivery> _queue = Channel.CreateBounded<Delivery>(
         new BoundedChannelOptions(QueueCapacity) { FullMode = BoundedChannelFullMode.DropOldest, SingleReader = true });
 
     public DiscordWebhook(Uri url, PersonaConfig persona, ISptLogger<RadioNorvinskMod> logger)
@@ -49,26 +50,45 @@ internal sealed class DiscordWebhook
     /// <param name="label">Names the message in the server console, e.g. "death.headEyes (Reapy)".</param>
     /// <param name="content">The radio's line.</param>
     /// <param name="facts">Optional box of facts under the line.</param>
-    public void Post(string label, string content, Embed facts = null)
+    /// <returns>The message, which <see cref="Edit"/> can change once it is out.</returns>
+    public PostedMessage Post(string label, string content, Embed facts = null)
     {
-        _queue.Writer.TryWrite(new WebhookPayload
+        var message = new PostedMessage(label, content);
+        var payload = new WebhookPayload
         {
-            Label = label,
             Content = content,
             Username = string.IsNullOrWhiteSpace(_persona.Name) ? null : _persona.Name,
             AvatarUrl = string.IsNullOrWhiteSpace(_persona.AvatarUrl) ? null : _persona.AvatarUrl,
             Embeds = facts is { Fields.Count: > 0 } ? [facts] : null,
             Flags = SuppressNotifications,
-        });
+        };
+
+        // wait=true: Discord answers with the message, whose id the radio needs to edit it.
+        _queue.Writer.TryWrite(new Delivery(label, "Posted",
+            () => Request(HttpMethod.Post, Query(_url, "wait=true"), payload),
+            async response => message.Id = await MessageIdAsync(response)));
+        return message;
+    }
+
+    /// <summary>
+    /// Replaces the text of a message posted earlier. Its facts card, name and avatar stay. Nothing happens when the
+    /// message never went out.
+    /// </summary>
+    public void Edit(PostedMessage message, string label, string content)
+    {
+        var payload = new WebhookEdit { Content = content };
+        _queue.Writer.TryWrite(new Delivery(label, "Edited",
+            () => message.Id == null ? null : Request(HttpMethod.Patch, MessageUrl(message.Id), payload),
+            null));
     }
 
     private async Task PumpAsync()
     {
-        await foreach (var payload in _queue.Reader.ReadAllAsync())
+        await foreach (var delivery in _queue.Reader.ReadAllAsync())
         {
             try
             {
-                await SendAsync(payload);
+                await SendAsync(delivery);
             }
             catch (Exception ex)
             {
@@ -77,7 +97,7 @@ internal sealed class DiscordWebhook
         }
     }
 
-    private async Task SendAsync(WebhookPayload payload)
+    private async Task SendAsync(Delivery delivery)
     {
         var watch = Stopwatch.StartNew();
         for (var attempt = 1; attempt <= MaxAttempts; attempt++)
@@ -85,10 +105,22 @@ internal sealed class DiscordWebhook
             TimeSpan wait;
             try
             {
-                using var response = await Http.PostAsJsonAsync(_url, payload, Json);
+                using var request = delivery.Request();
+                if (request == null)
+                {
+                    _logger.Debug($"[Radio Norvinsk] Skipped {delivery.Label}: the message it edits never went out.");
+                    return;
+                }
+
+                using var response = await Http.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
-                    _logger.OnAir($"[Radio Norvinsk] Posted {payload.Label} ({watch.ElapsedMilliseconds} ms).");
+                    if (delivery.Delivered != null)
+                    {
+                        await delivery.Delivered(response);
+                    }
+
+                    _logger.OnAir($"[Radio Norvinsk] {delivery.Verb} {delivery.Label} ({watch.ElapsedMilliseconds} ms).");
                     return;
                 }
 
@@ -102,9 +134,9 @@ internal sealed class DiscordWebhook
                 }
                 else
                 {
-                    // 4xx other than 429: a bad payload or a deleted webhook. Retrying won't help.
+                    // 4xx other than 429: a bad payload, a deleted webhook or message. Retrying won't help.
                     var body = await response.Content.ReadAsStringAsync();
-                    _logger.Error($"[Radio Norvinsk] Discord refused {payload.Label} ({(int)response.StatusCode}): {Truncate(body, 300)}");
+                    _logger.Error($"[Radio Norvinsk] Discord refused {delivery.Label} ({(int)response.StatusCode}): {Truncate(body, 300)}");
                     return;
                 }
             }
@@ -120,7 +152,45 @@ internal sealed class DiscordWebhook
             }
         }
 
-        _logger.Warning($"[Radio Norvinsk] Dropped {payload.Label} after {MaxAttempts} attempts.");
+        _logger.Warning($"[Radio Norvinsk] Dropped {delivery.Label} after {MaxAttempts} attempts.");
+    }
+
+    private static HttpRequestMessage Request(HttpMethod method, Uri url, object payload)
+    {
+        return new HttpRequestMessage(method, url) { Content = JsonContent.Create(payload, payload.GetType(), options: Json) };
+    }
+
+    // The webhook's own query (thread_id, for a thread) stays on every call.
+    private static Uri Query(Uri url, string parameter)
+    {
+        var builder = new UriBuilder(url);
+        var query = builder.Query.TrimStart('?');
+        builder.Query = query.Length == 0 ? parameter : $"{query}&{parameter}";
+        return builder.Uri;
+    }
+
+    private Uri MessageUrl(string id)
+    {
+        var builder = new UriBuilder(_url);
+        builder.Path = $"{builder.Path.TrimEnd('/')}/messages/{id}";
+        return builder.Uri;
+    }
+
+    // Reading the answer can't fail the post: the message is out, it just can't be edited.
+    private static async Task<string> MessageIdAsync(HttpResponseMessage response)
+    {
+        try
+        {
+            using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+            return document.RootElement.TryGetProperty("id", out var id) && id.ValueKind == JsonValueKind.String
+                   && ulong.TryParse(id.GetString(), out _)
+                ? id.GetString()
+                : null;
+        }
+        catch (Exception ex) when (ex is JsonException or HttpRequestException or TaskCanceledException)
+        {
+            return null;
+        }
     }
 
     private static async Task<TimeSpan> RetryAfterAsync(HttpResponseMessage response)
@@ -151,11 +221,14 @@ internal sealed class DiscordWebhook
         return text.Length <= length ? text : text[..length] + "...";
     }
 
+    /// <summary>One call to Discord, waiting in the queue.</summary>
+    /// <param name="Verb">For the console: "Posted", "Edited".</param>
+    /// <param name="Request">Built for each attempt. Null: nothing to send any more.</param>
+    /// <param name="Delivered">Reads Discord's answer, once the call went through.</param>
+    private sealed record Delivery(string Label, string Verb, Func<HttpRequestMessage> Request, Func<HttpResponseMessage, Task> Delivered);
+
     private sealed class WebhookPayload
     {
-        [JsonIgnore]
-        public string Label { get; init; }
-
         [JsonPropertyName("content")]
         public string Content { get; init; }
 
@@ -176,9 +249,29 @@ internal sealed class DiscordWebhook
         public AllowedMentions AllowedMentions { get; init; } = new();
     }
 
+    // Fields left out stay as they were: the embeds, name and avatar.
+    private sealed class WebhookEdit
+    {
+        [JsonPropertyName("content")]
+        public string Content { get; init; }
+
+        [JsonPropertyName("allowed_mentions")]
+        public AllowedMentions AllowedMentions { get; init; } = new();
+    }
+
     private sealed class AllowedMentions
     {
         [JsonPropertyName("parse")]
         public string[] Parse { get; init; } = [];
     }
+}
+
+/// <summary>A message on its way to Discord. Its id comes once Discord has it, and lets the radio edit it.</summary>
+internal sealed class PostedMessage(string label, string content)
+{
+    public string Label { get; } = label;
+    public string Content { get; } = content;
+
+    /// <summary>Discord's id for the message. Null until it is out, and for good when it never went out.</summary>
+    public string Id { get; set; }
 }

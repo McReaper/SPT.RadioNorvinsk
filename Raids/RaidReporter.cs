@@ -138,7 +138,8 @@ internal sealed class RaidReporter(
             return;
         }
 
-        chronicler.RaidEnded(end);
+        // When nobody extracts, the raid's last message gets the link to its recording, once the raid is over.
+        extractions.Posted(sessionId.ToString(), chronicler.RaidEnded(end));
     }
 
     private DeathStory Death(MongoId sessionId, string player, EftStats eft, string location, TimeSpan playTime)

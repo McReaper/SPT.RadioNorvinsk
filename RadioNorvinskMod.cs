@@ -65,10 +65,14 @@ public class RadioNorvinskMod(
         var levels = new LevelTracker(chronicler);
         var grace = TimeSpan.FromMinutes(Math.Max(0, config.ReconnectGraceMinutes));
 
+        // Raid Review is optional: without it, raids simply go without a link to their recording.
+        var reviews = ReviewLinks.Create(config.RaidReviewUrl, logger);
+
         PatchContext.Logger = logger;
         PatchContext.Sessions = new SessionTracker(grace, chronicler, saveServer, logger);
         PatchContext.Levels = levels;
-        PatchContext.Raids = new RaidReporter(chronicler, levels, new ExtractionGroups(chronicler, logger), saveServer, profileHelper, weatherHelper);
+        PatchContext.Raids = new RaidReporter(chronicler, levels, new ExtractionGroups(chronicler, reviews, logger), saveServer,
+            profileHelper, weatherHelper);
 
         AbstractPatch[] patches =
         [

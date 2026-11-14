@@ -76,7 +76,9 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     /// One message per player leaving a PMC raid: how it ended, then the bosses they killed and the level they
     /// reached. When the outcome's switch is off, the first boss, or else the level, opens the message.
     /// </summary>
-    public void RaidEnded(RaidEnd end)
+    /// <param name="review">The raid's recording in Raid Review, when this message closes the raid and there is one.</param>
+    /// <returns>The message, for <see cref="AddReview"/>. Null when there was nothing to say.</returns>
+    public PostedMessage RaidEnded(RaidEnd end, string review = null)
     {
         var parts = new List<Spoken>();
         Add(parts, Outcome(end));
@@ -93,10 +95,23 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
 
         if (parts.Count == 0)
         {
-            return;
+            return null;
         }
 
-        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({end.Player})", Compose(parts), parts[0].Facts);
+        return webhook.Post($"{Keys(parts, review)} ({end.Player})", Compose(parts, review), parts[0].Facts);
+    }
+
+    /// <summary>
+    /// Adds the link to the raid's recording to a message already posted: the raid's last death, once the raid is
+    /// over. The link only exists then, when every game has left the raid.
+    /// </summary>
+    public void AddReview(PostedMessage message, string review)
+    {
+        if (message != null && review != null)
+        {
+            webhook.Edit(message, $"{message.Label} + raidReview",
+                $"{message.Content}\n{locale.Format("raidReview", ("url", review))}");
+        }
     }
 
     /// <summary>Whether extractions are announced: when they aren't, nothing is worth holding them back for.</summary>
@@ -106,7 +121,8 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     /// The players who extracted from the same raid, in the order they left: one line for all of them, then
     /// everyone's bosses, then everyone's levels. A player who extracted alone gets their own end-of-raid message.
     /// </summary>
-    public void SquadExtracted(IReadOnlyList<RaidEnd> ends)
+    /// <param name="review">The raid's recording in Raid Review, when there is one.</param>
+    public void SquadExtracted(IReadOnlyList<RaidEnd> ends, string review = null)
     {
         var parts = new List<Spoken>();
         if (ends.Count > 1)
@@ -121,12 +137,12 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
                 ("raidTime", names.Duration(ends.Max(end => end.PlayTime)))));
         }
 
-        // Alone, or no squad line in any locale: everyone gets their own message.
+        // Alone, or no squad line in any locale: everyone gets their own message, and the last one the link.
         if (parts.Count == 0)
         {
-            foreach (var end in ends)
+            for (var i = 0; i < ends.Count; i++)
             {
-                RaidEnded(end);
+                RaidEnded(ends[i], i == ends.Count - 1 ? review : null);
             }
 
             return;
@@ -148,8 +164,8 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             }
         }
 
-        webhook.Post($"{string.Join(" + ", parts.Select(part => part.Key))} ({string.Join(", ", ends.Select(end => end.Player))})",
-            Compose(parts), null);
+        webhook.Post($"{Keys(parts, review)} ({string.Join(", ", ends.Select(end => end.Player))})",
+            Compose(parts, review), null);
     }
 
     // The bosses the player killed. When nothing comes before them, the first one opens the message.
@@ -185,7 +201,8 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
     }
 
     // The bosses get a line of their own, set off by the "bossLine" format ("> 👑 ..."). The rest reads as one paragraph.
-    private string Compose(List<Spoken> parts)
+    // The link to the raid's recording, if any, comes last, on a line of its own.
+    private string Compose(List<Spoken> parts, string review)
     {
         var text = new StringBuilder(parts[0].Line);
         for (var i = 1; i < parts.Count; i++)
@@ -200,7 +217,19 @@ internal sealed class Chronicler(EventsConfig events, Locale locale, Names names
             }
         }
 
+        if (review != null)
+        {
+            text.Append('\n').Append(locale.Format("raidReview", ("url", review)));
+        }
+
         return text.ToString();
+    }
+
+    // Names the message in the server console: "death.headEyes + endLevel + raidReview".
+    private static string Keys(List<Spoken> parts, string review)
+    {
+        var keys = string.Join(" + ", parts.Select(part => part.Key));
+        return review == null ? keys : keys + " + raidReview";
     }
 
     private Spoken Outcome(RaidEnd end)

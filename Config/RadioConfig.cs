@@ -18,6 +18,12 @@ public class RadioConfig
     /// stays in the same session: no message either way. Quitting from the game's menu ends it at once.
     /// </summary>
     public int ReconnectGraceMinutes { get; set; } = 10;
+
+    /// <summary>
+    /// Raid Review's page as the players open it in their browser, e.g. <c>http://my-server:7829</c>. With Ekky's Raid
+    /// Review server mod installed, the message that closes a raid links to its recording there. Empty: no link.
+    /// </summary>
+    public string RaidReviewUrl { get; set; } = "";
 }
 
 /// <summary>Name and avatar sent with every message, overriding the webhook's own.</summary>

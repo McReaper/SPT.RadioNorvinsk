@@ -42,13 +42,19 @@ Quitting the game from its menu ends the session at once. A game that drops with
 
 Deaths get lines picked for the situation when one applies, from the most specific to the plain one: suicide (own grenade), friendly fire, fall, bleeding, explosion, a cause nobody fired (dehydration, radiation...), killed by a boss, within the first 2 minutes, head-eyes, by a scav.
 
+With [Raid Review](#raid-review) on the server, a raid's last message ends with a link to its recording.
+
 **No pings, no notifications.** Every message goes out with Discord's *suppress notifications* flag and an empty `allowed_mentions`. Nobody gets pinged, not even by a nickname like `@everyone`.
 
 ## Requirements
 
+> [!WARNING]
+> Radio Norvinsk requires **[Fika](https://forge.sp-tarkov.com/mod/2326/project-fika) 2.4.x** on the server. It hooks Fika's server mod, so SPT refuses to load Radio Norvinsk without it. Fika is the only mod it requires.
+
 - SPT 4.1.6
-- Fika 2.4.x. The mod hooks Fika's server, so SPT refuses to load it without Fika.
+- Fika 2.4.x
 - A Discord channel where you can create a webhook.
+- Optional: Ekky's [Raid Review](https://github.com/ekky-llc/spt-raid-review), for a link to each raid's recording. See [Raid Review](#raid-review).
 
 ## Install
 
@@ -89,6 +95,7 @@ When an update brings new settings, the next start adds them to your file with t
 | `events.levelUp` | `true` | Post level-ups. |
 | `events.bossKill` | `true` | Post boss kills. |
 | `reconnectGraceMinutes` | `10` | How long a game that dropped without quitting can be gone and still be in the same session. |
+| `raidReviewUrl` | `""` | Raid Review's page as your players open it, e.g. `http://my-server:7829`. Empty: no link. Unused without Raid Review. See [Raid Review](#raid-review). |
 
 Discord keeps each avatar it has fetched for a given URL. After changing the image behind the same URL, add `?v=2` (then `?v=3`...) to the URL so Discord fetches it again.
 
@@ -97,6 +104,20 @@ Each message is logged in the server console in tan, with Discord's response tim
 ```
 [Radio Norvinsk] Posted death.headEyes (Kolya) (142 ms).
 ```
+
+## Raid Review
+
+With Ekky's [Raid Review](https://github.com/ekky-llc/spt-raid-review) installed on the server, each raid's last message ends with a link to the raid's recording:
+
+> 📻 Reapy and Dima just extracted on Customs, after 34 min in the raid.<br>
+> 🎞️ [Watch the raid on Raid Review](#raid-review)
+
+- **Which message.** The squad's extractions, which already wait for the end of the raid. When nobody got out, the raid's last death: it goes out as usual, and the link is added to it once the raid is over, so Discord marks it as edited.
+- **When.** The link only exists once the raid is over: each game sends its recording to Raid Review as it leaves the raid. Radio Norvinsk looks for it when the Fika host has left, the last one out, and waits up to 20 s more for it.
+- **Which recording.** Each player whose game runs Raid Review's plugin records the raid on their own. The link opens the host's recording, the only one with the bots' AI (SAIN, quests), or else the longest one. Without any recording, there is no link.
+- **Setup.** Set `raidReviewUrl` to Raid Review's page as your players open it in their browser: the server's address and Raid Review's `web_client_port` (7829 by default). The server can't guess the address its players use. While the setting is empty, the console says so at start.
+- **No dependency.** Radio Norvinsk finds Raid Review when the server loads it, and reads its recordings through the web API its page uses. Without Raid Review, nothing changes.
+- Raid Review keeps its last 30 recordings by default (`autoDeleteLimit` in its config), and every player who records counts: with a squad of three, about 10 raids. Older links lead nowhere.
 
 ## Languages
 
@@ -119,7 +140,7 @@ Each key under `lines` holds several variants. The radio picks one at random, ne
 | `endBosses` | `{player}`, `{bosses}` |
 | `endLevel` | `{player}`, `{level}` |
 
-An end-of-raid message opens with the outcome's line (`extract`, `extractSquad`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑). Deaths open with 💀 instead of 📻, head-eyes deaths with 🎯, and a hit to the head reads "head 🎯" wherever it is told (`formats.headHit`).
+An end-of-raid message opens with the outcome's line (`extract`, `extractSquad`, `death`...) and adds the `end…` lines after it, so those carry no 📻. When the outcome isn't announced, `bossKill` or `levelUp` opens it instead. A killed boss stands out: its name goes through `formats.bossName` (bold), and its `endBoss` or `endBosses` line through `formats.bossLine`, on a line of its own (a quote with 👑). Deaths open with 💀 instead of 📻, head-eyes deaths with 🎯, and a hit to the head reads "head 🎯" wherever it is told (`formats.headHit`). The link to a raid's recording comes last, on a line of its own, from `formats.raidReview` (`{url}`).
 
 `{mapAt}` is the map with its preposition, from `mapsAt` ("on Customs", "sur Customs"). The other sections (`maps`, `roles`, `bodyParts`, `headSegments`, `causes`, `labels`, `formats`) name what the game only gives as ids. Weapon names come from the game's own translations.
 
