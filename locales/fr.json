@@ -170,7 +170,21 @@
       "📻 Et on retrouve {player}, qui vient de se connecter. Tout le monde à couvert.",
       "📻 Tiens, {player} est en ligne. On espère qu'il reste du carburant dans la planque.",
       "📻 {player} est en ligne. Le stash n'est toujours pas rangé, mais on ne juge pas.",
-      "📻 {player} est de retour. Les prix du flea, eux, n'ont pas baissé."
+      "📻 {player} est de retour. Les prix du flea, eux, n'ont pas baissé.",
+      "📻 Tiens, revoilà {player}. On commençait à se poser des questions.",
+      "📻 {player} vient de se connecter. Bienvenue, et bon courage pour le tri du stash.",
+      "📻 Et voilà {player} qui arrive. Les traders ont déjà le sourire.",
+      "📻 On accueille {player}, qui vient de se connecter. Les scavs du coin, eux, sont beaucoup moins contents.",
+      "📻 {player} vient d'arriver. Et Mechanic, comme d'habitude, a encore une arme à faire monter au gramme près.",
+      "📻 Connexion de {player}. Therapist nous fait savoir qu'elle cherche toujours des LEDX, si jamais.",
+      "📻 {player} se connecte. Petit rappel au passage : les cartes de Labs, ça ne pousse pas sur les arbres.",
+      "📻 {player} est en ligne. Allez, on remet du carburant dans le générateur, et c'est reparti.",
+      "📻 Petite info : {player} vient de se connecter. Pour combien de temps, on ne sait pas encore.",
+      "📻 {player} vient de nous rejoindre. Et le flea market a déjà remonté ses prix, par principe.",
+      "📻 On retrouve {player} sur la fréquence. Pensez à remplir vos chargeurs.",
+      "📻 {player} est de retour parmi nous. Le Scav case a peut-être enfin rendu quelque chose d'utile… on n'y croit pas trop.",
+      "📻 {player} se connecte. Et quelque part à Tarkov, un scav vient d'avoir un mauvais pressentiment.",
+      "📻 Bonsoir à {player}, qui vient de se connecter. Ou bonjour, on ne sait jamais avec vous."
     ],
     "disconnect": [
       "📻 {player} vient de se déconnecter, après {duration} de jeu. Merci d'avoir été avec nous.",
@@ -178,7 +192,21 @@
       "📻 {player} nous quitte après {duration}. À la prochaine.",
       "📻 Et c'est terminé pour {player}, {duration} de jeu. Au lit, maintenant.",
       "📻 {player} se déconnecte après {duration}. La ferme à bitcoins, elle, continue de tourner.",
-      "📻 {player} se déconnecte après {duration}. Les assurances de Prapor arriveront demain. Peut-être."
+      "📻 {player} se déconnecte après {duration}. Les assurances de Prapor arriveront demain. Peut-être.",
+      "📻 {player} vient de couper la radio, après {duration}. On garde la fréquence au chaud.",
+      "📻 {player} se déconnecte après {duration}. Le tri du stash, ce sera pour la prochaine fois.",
+      "📻 Fin de transmission pour {player}, après {duration} de jeu.",
+      "📻 {player} quitte Tarkov après {duration}. On ne sait pas pour combien de temps, mais on se doute que ça ne durera pas.",
+      "📻 {player} se déconnecte après {duration}. Une pause bien méritée.",
+      "📻 {player} raccroche après {duration}. Les scavs vont pouvoir ressortir tranquillement.",
+      "📻 {player} se déconnecte après {duration}. Espérons que le générateur de la planque tienne jusqu'à son retour.",
+      "📻 {player} nous quitte après {duration}. On espère que le stash ne va pas déborder d'ici là.",
+      "📻 {player} se déconnecte, {duration} au compteur. Direction le lit, on l'espère.",
+      "📻 {player} s'en va après {duration}. La planque se met en veille.",
+      "📻 Déconnexion de {player} après {duration}. Le flea market va enfin pouvoir souffler.",
+      "📻 {player} quitte l'antenne après {duration}. À très vite sur Radio Norvinsk.",
+      "📻 {player} se déconnecte après {duration}. Les crafts de la planque, eux, continuent sans personne pour les surveiller.",
+      "📻 {duration} de jeu, et {player} s'arrête là pour aujourd'hui."
     ],
     "raidStartSolo": [
       "📻 On apprend que {player} vient de partir en raid {mapAt}. En solo.",
@@ -187,7 +215,20 @@
       "📻 Petite info : {player} est en raid {mapAt}. On garde un œil sur la situation.",
       "📻 {player} vient de débarquer {mapAt}, en solo. Les scavs du coin sont prévenus.",
       "📻 {player} part en raid {mapAt}. Un Salewa, deux chargeurs, et beaucoup d'espoir.",
-      "📻 {player} entre en raid {mapAt}, une Tushonka dans le sac. Au cas où."
+      "📻 {player} entre en raid {mapAt}, une Tushonka dans le sac. Au cas où.",
+      "📻 {player} part en solo {mapAt}. Il est {time} là-bas, et personne n'attend de visite.",
+      "📻 Départ en solo pour {player}, {mapAt}. Il en faut, du courage. Chapeau.",
+      "📻 {player} entre en raid {mapAt}, sans équipe. Au moins, pas de risque de tir ami.",
+      "📻 On me signale {player} {mapAt}, en solo. Les campeurs du coin ont intérêt à bien se cacher.",
+      "📻 {player} part en raid {mapAt}. Le conteneur est vide, mais le moral est bon.",
+      "📻 Raid en solo {mapAt} pour {player}. Si vous entendez des tirs dans le coin, ça vient sûrement de là.",
+      "📻 {player} part {mapAt}. Officiellement, pour les quêtes. Officieusement, pour tout ce qui brille.",
+      "📻 {player} entre en raid {mapAt}. Et Fence a déjà fait une estimation du kit, au cas où.",
+      "📻 {player} se lance en solo {mapAt}. On lui conseille de regarder derrière, et souvent.",
+      "📻 {player} part {mapAt}, une main sur le Salewa, l'autre sur la carte.",
+      "📻 Il est {time} {mapAt}, et {player} vient d'arriver. On reste à l'écoute.",
+      "📻 {player} part en raid {mapAt}. L'assurance chez Prapor est signée, il ne reste plus qu'à prier.",
+      "📻 Alors, {player} vient de partir {mapAt}, en solo. On lui souhaite de rentrer avec le sac plein."
     ],
     "raidStartSquad": [
       "📻 On apprend à l'instant que {squad} viennent de partir en raid {mapAt}.",
@@ -195,7 +236,21 @@
       "📻 {count} joueurs en raid {mapAt} : {squad}. On suit ça de près.",
       "📻 Alors, on me signale du monde {mapAt} : {squad}. Ça va faire du bruit.",
       "📻 {squad}, en raid {mapAt}. On croise les doigts pour que tout le monde rentre.",
-      "📻 {squad} partent en raid {mapAt}. Fence se tient déjà prêt à racheter le butin."
+      "📻 {squad} partent en raid {mapAt}. Fence se tient déjà prêt à racheter le butin.",
+      "📻 {count} joueurs {mapAt} : {squad}. On rappelle qu'on tire sur les autres, pas entre soi.",
+      "📻 Une escouade vient d'arriver {mapAt} : {squad}. Les scavs du coin peuvent commencer à s'inquiéter.",
+      "📻 {squad} partent ensemble {mapAt}. Reste à savoir qui couvre qui.",
+      "📻 Sortie en groupe {mapAt} pour {squad}. Il est {time} sur place.",
+      "📻 {squad} entrent en raid {mapAt}. Et dans le vocal, ça parle déjà fort.",
+      "📻 Ça bouge {mapAt} : {squad}. Les communications risquent d'être animées.",
+      "📻 {squad}, en raid {mapAt}. Pour le partage du butin, ce sera comme d'habitude : premier arrivé, premier servi.",
+      "📻 {count} joueurs {mapAt} : {squad}. Tout le monde a promis de ne pas tirer sur les copains. On verra bien.",
+      "📻 {squad} débarquent {mapAt}. Il y a un plan, paraît-il. Il ne tiendra pas jusqu'au premier coup de feu.",
+      "📻 Départ {mapAt} pour {squad}. Le premier qui dit « c'est clean » paie sa tournée.",
+      "📻 {squad} partent {mapAt}. Les rats du coin font profil bas, et on les comprend.",
+      "📻 Raid en équipe {mapAt} : {squad}. Petit rappel : « il est là ! », ce n'est pas une position.",
+      "📻 {squad} entrent en raid {mapAt}. L'objectif : rentrer au complet. Et si possible, les poches pleines.",
+      "📻 Attention {mapAt}, {squad} arrivent. Il est {time}, et pour les scavs, c'est déjà trop tard."
     ],
     "death": [
       "💀 On apprend à l'instant la mort de {player} {mapAt}. C'est {killer} qui a tiré.",
@@ -203,66 +258,155 @@
       "💀 Mauvaise nouvelle {mapAt} : on vient de perdre {player}. {killer} est en cause.",
       "💀 Bon… {player} ne rentrera pas. Ça s'est passé {mapAt}, il y a quelques secondes. Pour l'assurance, il faudra voir avec Prapor.",
       "💀 {player} est hors jeu {mapAt}. {killer}, visiblement, n'était pas d'humeur à discuter.",
-      "💀 On apprend la mort de {player} {mapAt}. Le conteneur sécurisé, au moins, est sauf."
+      "💀 On apprend la mort de {player} {mapAt}. Le conteneur sécurisé, au moins, est sauf.",
+      "💀 On a une pensée pour {player}, qui ne rentrera pas de ce raid {mapAt}.",
+      "💀 {player} s'est fait descendre {mapAt}. C'est {killer}, avec {weapon}.",
+      "💀 Flash info {mapAt} : on vient de perdre {player}. Le kit, lui, change de propriétaire.",
+      "💀 {player} ne rentrera pas. {killer} l'attendait {mapAt}.",
+      "💀 Après {raidTime} de raid, c'est fini pour {player} {mapAt}. Et {killer} repart avec le butin.",
+      "💀 {player} a perdu le duel {mapAt}. En face, il y avait {killer}, avec {weapon}.",
+      "💀 On interrompt le programme : on vient de perdre {player} {mapAt}.",
+      "💀 C'est terminé pour {player} {mapAt}, après {raidTime}. {killer} était au mauvais endroit… ou au bon, ça dépend pour qui.",
+      "💀 {player} s'est fait surprendre {mapAt}. {killer}, en revanche, est toujours debout.",
+      "💀 {player} ne rentrera pas. Le sac, le casque et un peu de fierté restent {mapAt}.",
+      "💀 Mort de {player} {mapAt}. Signé {killer}, avec {weapon}.",
+      "💀 {player} n'a pas survécu {mapAt}. Heureusement, le conteneur sécurisé porte bien son nom.",
+      "💀 Fin de raid brutale pour {player} {mapAt}. {raidTime} de stress, et tout ça pour ça.",
+      "💀 On vient de perdre {player} {mapAt}. Il va falloir repasser chez les traders pour tout racheter."
     ],
     "death.scav": [
       "💀 On apprend à l'instant la mort de {player} {mapAt}. C'est un scav qui a tiré… oui, un scav. On n'en dira pas plus.",
       "💀 {player} s'est fait avoir par un scav {mapAt}. Fence, lui, n'a pas l'air surpris.",
       "💀 Mort de {player} {mapAt}. Un scav, avec {weapon}.",
-      "💀 Un scav a eu raison de {player} {mapAt}."
+      "💀 Un scav a eu raison de {player} {mapAt}.",
+      "💀 Un scav armé de {weapon} vient d'avoir {player} {mapAt}. Pas de commentaire.",
+      "💀 Un scav vient de vivre le plus beau jour de sa vie {mapAt}. Pour {player}, c'est une autre histoire.",
+      "💀 {player} s'est fait surprendre par un scav {mapAt}. Et il paraît qu'il tirait au hasard.",
+      "💀 Moment de solitude {mapAt} : {player} vient de se faire avoir par un scav. On ne citera pas de nom… bon, allez : {killer}.",
+      "💀 Mort de {player} {mapAt}. Et c'est un scav en survêtement qui repart avec tout le kit.",
+      "💀 {killer}, scav de son état, vient d'avoir {player} {mapAt}. Il va pouvoir s'offrir un survêtement neuf.",
+      "💀 Un scav a eu {player} {mapAt}, avec {weapon}. Le karma, sûrement.",
+      "💀 {player} s'est fait descendre par un scav {mapAt}. Ce soir, autour du feu de camp, on ne parlera que de ça."
     ],
     "death.headEyes": [
       "🎯 Tête, yeux, pour {player} {mapAt}. Le genre de nouvelle qu'on annonce sans commentaire.",
       "🎯 {player} a pris une balle dans les yeux {mapAt}. {killer} visait bien.",
       "🎯 Mort de {player} {mapAt}, d'une balle dans les yeux. Rien à faire.",
-      "🎯 Tête, yeux, pour {player} {mapAt}. Le casque n'y pouvait rien."
+      "🎯 Tête, yeux, pour {player} {mapAt}. Le casque n'y pouvait rien.",
+      "🎯 Tête, yeux, pour {player} {mapAt}. {killer} n'a pas raté son coup.",
+      "🎯 Une seule balle, dans les yeux, et c'est fini pour {player} {mapAt}. Le casque, lui, n'a pas une rayure.",
+      "🎯 Tête, yeux, pour {player} {mapAt}, après {raidTime}. Un grand classique de Tarkov.",
+      "🎯 {killer} a visé les yeux de {player} {mapAt}. Et il a touché.",
+      "🎯 {player} n'a rien vu venir {mapAt}. Et pour cause : la balle est arrivée dans les yeux.",
+      "🎯 Tête, yeux, {mapAt}. {player} rejoint une longue liste. C'était {weapon}, pour ceux que ça intéresse.",
+      "🎯 Tête, yeux, pour {player} {mapAt}. Et pourtant, la visière était baissée.",
+      "🎯 Une balle dans les yeux pour {player} {mapAt}. Les lunettes balistiques, ce sera pour la prochaine fois."
     ],
     "death.quick": [
       "💀 {player} est déjà hors jeu {mapAt}, après {raidTime} de raid.",
       "💀 Raid express pour {player} : {raidTime}, et c'est fini. Le chargement a duré plus longtemps.",
       "💀 On apprend la mort de {player} {mapAt}, {raidTime} après le début du raid. On n'a même pas eu le temps de l'annoncer.",
-      "💀 {player} est hors jeu {mapAt} après {raidTime}. Le spawn n'a pas été clément."
+      "💀 {player} est hors jeu {mapAt} après {raidTime}. Le spawn n'a pas été clément.",
+      "💀 {raidTime} : c'est tout ce qu'aura duré le raid de {player} {mapAt}.",
+      "💀 {player} vient à peine d'arriver {mapAt}, et c'est déjà fini. {raidTime} chrono.",
+      "💀 {player} est hors jeu {mapAt} après {raidTime}. Un record, mais pas celui qu'on voulait.",
+      "💀 {raidTime} après le début du raid, {player} est déjà hors jeu {mapAt}. On n'a rien eu le temps de voir.",
+      "💀 On n'avait même pas fini d'annoncer le départ de {player}, et c'est déjà terminé {mapAt}. {raidTime}.",
+      "💀 Retour express au menu pour {player}, {raidTime} après l'arrivée {mapAt}.",
+      "💀 {player} s'est fait cueillir dès le spawn {mapAt}. {raidTime}, et au revoir.",
+      "💀 {player} n'aura pas fait long feu {mapAt} : {raidTime}, pas une seconde de plus."
     ],
     "death.boss": [
       "💀 On apprend la mort de {player} {mapAt}. C'est {boss} qui a tiré.",
       "💀 {player} a croisé la route de {boss} {mapAt}. Ça ne s'est pas bien terminé.",
-      "💀 Mauvaise rencontre {mapAt} : {player} contre {boss}. On connaît la suite."
+      "💀 Mauvaise rencontre {mapAt} : {player} contre {boss}. On connaît la suite.",
+      "💀 {boss} a eu {player} {mapAt}. On ne va pas dire qu'on ne l'avait pas vu venir.",
+      "💀 Mort de {player} {mapAt}. {boss} défend son territoire, comme toujours.",
+      "💀 {player} a tenté sa chance contre {boss} {mapAt}. Et {boss} s'en sort sans une égratignure.",
+      "💀 {player} voulait le kit de {boss} {mapAt}. Visiblement, c'était réciproque.",
+      "💀 Score final {mapAt} : {boss}, un. {player}, zéro.",
+      "💀 {player} a rendu visite à {boss} {mapAt}. Et {boss} n'a pas apprécié.",
+      "💀 On apprend que {boss} a eu {player} {mapAt}. Avec {weapon}, pour les curieux.",
+      "💀 {player} a sous-estimé {boss} {mapAt}. C'est une erreur qu'on ne fait qu'une fois… par raid.",
+      "💀 {boss} garde son butin {mapAt}, et repart avec celui de {player} en prime."
     ],
     "death.friendlyFire": [
       "💀 On nous signale un tir ami {mapAt} : {killer} a abattu {player}. L'ambiance dans l'équipe, on en reparlera.",
       "💀 Tir ami {mapAt}. {killer} sur {player}. On attend les explications.",
       "💀 Mort de {player} {mapAt}, de la main de {killer}. Même équipe, oui.",
-      "💀 Tir ami {mapAt} : {killer} a abattu {player}. Le brassard, c'est fait pour ça."
+      "💀 Tir ami {mapAt} : {killer} a abattu {player}. Le brassard, c'est fait pour ça.",
+      "💀 Tir ami {mapAt} : {killer} a eu {player}. Le débriefing promet d'être tendu.",
+      "💀 {killer} vient d'abattre {player} {mapAt}. Oui, dans la même équipe.",
+      "💀 Erreur d'identification {mapAt} : {player} ne rentrera pas, et {killer} va devoir s'expliquer.",
+      "💀 Mort de {player} {mapAt}. Le coupable, c'est {killer}. Le mobile, on l'attend toujours.",
+      "💀 Tir ami {mapAt}. {killer} jure que {player} « ressemblait à un scav ».",
+      "💀 {killer} a pris {player} pour un ennemi {mapAt}. Du moins, c'est la version officielle.",
+      "💀 Tir ami {mapAt}, {killer} sur {player}. On entend crier jusqu'ici dans le vocal.",
+      "💀 {killer} a abattu {player} {mapAt}. Bon, il y a quand même une bonne nouvelle : le loot reste dans l'équipe."
     ],
     "death.suicide": [
       "💀 Mort de {player} {mapAt}, par sa propre grenade. On rappelle que la grenade, ça se lance.",
       "💀 {player} est hors jeu {mapAt}. Personne d'autre n'est impliqué, si vous voyez ce que je veux dire.",
-      "💀 Accident {mapAt} : {player} et sa propre grenade. Pas de témoin."
+      "💀 Accident {mapAt} : {player} et sa propre grenade. Pas de témoin.",
+      "💀 Mort de {player} {mapAt}. L'enquête conclut à un accident… ou à une grenade mal lancée.",
+      "💀 {player} a bien lancé sa grenade {mapAt}. Pas assez loin, malheureusement.",
+      "💀 {player} et sa propre grenade, {mapAt} : ça s'est mal terminé. Rappel : on dégoupille, et on lance.",
+      "💀 Mort de {player} {mapAt}. Et le seul suspect, c'est {player}.",
+      "💀 {player} vient de s'éliminer {mapAt}, sans l'aide de personne."
     ],
     "death.bleeding": [
       "💀 Mort de {player} {mapAt}, d'une hémorragie.",
       "💀 {player} n'a pas pu stopper le saignement {mapAt}. Il restait pourtant un garrot Esmarch au fond du sac.",
-      "💀 Hémorragie fatale pour {player} {mapAt}."
+      "💀 Hémorragie fatale pour {player} {mapAt}.",
+      "💀 Mort de {player} {mapAt}. Le saignement a été plus rapide que le garrot.",
+      "💀 {player} ne rentrera pas : une hémorragie, {mapAt}. Il aurait suffi d'un garrot.",
+      "💀 Après {raidTime} de raid, une hémorragie a eu raison de {player} {mapAt}.",
+      "💀 {player} a saigné jusqu'au bout {mapAt}. La trousse de soins, elle, était restée au stash.",
+      "💀 Mort de {player} {mapAt}, d'une hémorragie. Les bandages, c'est avant qu'il faut les mettre."
     ],
     "death.fall": [
       "💀 Mort de {player} {mapAt}, après une chute.",
       "💀 {player} a sauté {mapAt}. Le sol a gagné.",
-      "💀 {player} est hors jeu {mapAt}. Une chute, rien de plus."
+      "💀 {player} est hors jeu {mapAt}. Une chute, rien de plus.",
+      "💀 {player} a voulu prendre un raccourci {mapAt}. Par le vide.",
+      "💀 {player} a perdu face à la gravité {mapAt}. Elle, elle ne perd jamais.",
+      "💀 Mort de {player} {mapAt}, après une chute. Il y avait pourtant un escalier.",
+      "💀 {player} a sauté {mapAt}. Les jambes n'étaient pas d'accord.",
+      "💀 Une chute de trop pour {player} {mapAt}. Le sol, à Tarkov, ne pardonne pas."
     ],
     "death.explosion": [
       "💀 Explosion {mapAt} : on vient de perdre {player}.",
       "💀 Mort de {player} {mapAt}, sur une mine. La zone était pourtant signalée… enfin, je crois.",
       "💀 {player} est hors jeu {mapAt}, après une explosion.",
-      "💀 Mort de {player} {mapAt}, sur une mine. Les panneaux « Mines », ce n'est pas de la déco."
+      "💀 Mort de {player} {mapAt}, sur une mine. Les panneaux « Mines », ce n'est pas de la déco.",
+      "💀 Ça a sauté {mapAt}, et {player} était juste à côté.",
+      "💀 Mort de {player} {mapAt}, dans une explosion. Il ne reste pas grand-chose à raconter.",
+      "💀 {player} a trouvé une mine {mapAt}. Avec le pied, malheureusement.",
+      "💀 {player} ne rentrera pas : une explosion {mapAt}, et on ne sait même pas d'où elle venait."
     ],
     "death.environment": [
       "💀 Mort de {player} {mapAt}. La cause exacte reste à déterminer.",
-      "💀 {player} est hors jeu {mapAt}, et personne n'a tiré. On enquête."
+      "💀 {player} est hors jeu {mapAt}, et personne n'a tiré. On enquête.",
+      "💀 Mort de {player} {mapAt}, et personne n'a tiré. Tarkov s'en est chargé tout seul.",
+      "💀 On a perdu {player} {mapAt}. Pas de balle, pas de coupable : juste Tarkov.",
+      "💀 Mort de {player} {mapAt}. La cause est indiquée juste en dessous, et elle n'est pas glorieuse.",
+      "💀 Mort de {player} {mapAt}. On rappelle qu'il faut lire la notice des stimulants avant de se piquer.",
+      "💀 Mort mystérieuse {mapAt} : on a perdu {player}, et aucune trace de tireur.",
+      "💀 C'est fini pour {player} {mapAt}, après {raidTime}. La zone a eu le dernier mot."
     ],
     "mia": [
       "📻 Toujours aucune nouvelle de {player} {mapAt}. Le raid est terminé, et la sortie n'a pas été trouvée.",
       "📻 {player} n'a pas trouvé la sortie à temps {mapAt}. Il y avait pourtant une carte.",
-      "📻 {player} n'a pas trouvé l'extraction à temps {mapAt}. Le deuxième écran, avec la carte, était peut-être éteint."
+      "📻 {player} n'a pas trouvé l'extraction à temps {mapAt}. Le deuxième écran, avec la carte, était peut-être éteint.",
+      "📻 Le raid est terminé {mapAt}, et toujours aucune trace de {player}.",
+      "📻 On signale une disparition {mapAt} : {player} n'a pas trouvé la sortie avant la fin du raid.",
+      "📻 Le chrono a gagné : pas d'extraction pour {player} {mapAt}, après {raidTime} de raid.",
+      "📻 {player} cherchait encore la sortie {mapAt} quand le raid s'est terminé.",
+      "📻 Pas de nouvelles de {player} {mapAt}. Le temps est écoulé, et la sortie était peut-être à deux pas.",
+      "📻 Fin du chrono {mapAt}. {player} reste sur place, au moins jusqu'au prochain raid.",
+      "📻 Pas d'extraction pour {player} {mapAt}. Il faut dire que les sorties ne sont pas fléchées.",
+      "📻 Le temps est écoulé {mapAt}, et {player} manque à l'appel.",
+      "📻 {player} manque à l'appel {mapAt}. On imagine que le loot valait bien de rater l'heure."
     ],
     "extract": [
       "📻 {player} vient de s'extraire {mapAt}, après {raidTime} de raid.",
@@ -270,11 +414,31 @@
       "📻 Bonne nouvelle {mapAt} : {player} rentre à la maison.",
       "📻 Extraction pour {player} {mapAt}, après {raidTime}. Le flea market attend la marchandise.",
       "📻 {player} quitte la zone {mapAt}, en un seul morceau. C'est déjà pas mal.",
-      "📻 Extraction pour {player} {mapAt}. Le stash va encore déborder."
+      "📻 Extraction pour {player} {mapAt}. Le stash va encore déborder.",
+      "📻 Retour à la planque pour {player}, après {raidTime} de raid {mapAt}.",
+      "📻 {player} vient de s'extraire {mapAt}, le sac plein. Les traders vont être contents.",
+      "📻 Extraction {mapAt} : {player} rentre avec le butin. Ce soir, on fait les comptes.",
+      "📻 {player} s'extrait {mapAt}, après {raidTime}. Rien à signaler, ou presque.",
+      "📻 {player} quitte la zone {mapAt}. Cette fois, le conteneur sécurisé n'aura pas servi.",
+      "📻 Bonne nouvelle {mapAt} : {player} a trouvé la sortie, et du premier coup.",
+      "📻 {player} s'extrait {mapAt} après {raidTime}. Le flea market va être inondé.",
+      "📻 Extraction confirmée pour {player} {mapAt}. On peut respirer.",
+      "📻 {player} rentre à la planque après {raidTime}. Il ne reste plus qu'à trier le butin.",
+      "📻 {player} s'extrait {mapAt}. Pour une fois, l'assurance de Prapor ne servira à rien.",
+      "📻 {player} quitte la zone {mapAt} avec tout son équipement. Ça mérite d'être signalé.",
+      "📻 Extraction pour {player} {mapAt}. Rien de cassé, à part peut-être les prix du flea.",
+      "📻 {player} s'extrait {mapAt}, après {raidTime}. Joli travail.",
+      "📻 Après {raidTime} {mapAt}, {player} rentre à la maison. Le stash va devoir faire de la place."
     ],
     "extractRunThrough": [
       "📻 Aller-retour express pour {player} {mapAt}. Run-through, comme on dit.",
-      "📻 {player} entre et ressort aussitôt {mapAt}. Visite éclair."
+      "📻 {player} entre et ressort aussitôt {mapAt}. Visite éclair.",
+      "📻 {player} a fait un petit tour {mapAt}, et rentre déjà. Du tourisme, en somme.",
+      "📻 Run-through {mapAt} pour {player} : on arrive, on fait demi-tour, on repart.",
+      "📻 Passage éclair de {player} {mapAt}. On n'a même pas eu le temps d'annoncer le départ.",
+      "📻 {player} ressort déjà {mapAt}, après {raidTime}. Pas même le temps de finir son café.",
+      "📻 Visite de courtoisie {mapAt} pour {player} : on entre, on dit bonjour, on repart.",
+      "📻 {player} fait l'aller-retour {mapAt} en {raidTime}. Personne n'a rien vu passer."
     ],
     "extractSquad": [
       "📻 {squad} viennent de s'extraire {mapAt}, après {raidTime} de raid.",
@@ -282,42 +446,222 @@
       "📻 Bonne nouvelle {mapAt} : {squad} rentrent à la maison.",
       "📻 Extraction pour {squad} {mapAt}, après {raidTime}. Le flea market attend la marchandise.",
       "📻 {squad} quittent la zone {mapAt}, en un seul morceau. C'est déjà pas mal.",
-      "📻 {count} extractions {mapAt} : {squad}. Les stashs vont encore déborder."
+      "📻 {count} extractions {mapAt} : {squad}. Les stashs vont encore déborder.",
+      "📻 Retour à la planque pour {squad}, après {raidTime} de raid {mapAt}.",
+      "📻 {squad} s'extraient {mapAt}. Les sacs sont lourds, et personne ne s'en plaint.",
+      "📻 Extraction groupée {mapAt} : {squad}. Les traders se frottent déjà les mains.",
+      "📻 {count} extractions confirmées {mapAt} : {squad}. Personne n'est resté derrière.",
+      "📻 {squad} quittent la zone {mapAt}. Cette fois, les conteneurs sécurisés n'auront pas servi.",
+      "📻 Bonne nouvelle {mapAt} : {squad} ont trouvé la sortie, ensemble en plus.",
+      "📻 {squad} s'extraient {mapAt} après {raidTime}. Le flea market va être inondé.",
+      "📻 Extraction confirmée pour {squad} {mapAt}. Le partage du butin peut commencer, et les disputes avec.",
+      "📻 {squad} rentrent à la planque après {raidTime}. Il va y avoir du tri à faire.",
+      "📻 {squad} s'extraient {mapAt}. Pour une fois, les assurances de Prapor ne serviront à rien.",
+      "📻 Sortie en bon ordre {mapAt} pour {squad}. Ça mérite d'être signalé.",
+      "📻 Après {raidTime} {mapAt}, {squad} rentrent à la maison. Les stashs vont devoir faire de la place.",
+      "📻 Extraction {mapAt} pour {squad}. Le travail d'équipe, ça finit par payer.",
+      "📻 {squad} quittent la zone {mapAt}. Reste à savoir qui a le plus gros sac."
     ],
     "extractSquadRunThrough": [
       "📻 Aller-retour express pour {squad} {mapAt}. Run-through, comme on dit.",
-      "📻 {squad} entrent et ressortent aussitôt {mapAt}. Visite éclair."
+      "📻 {squad} entrent et ressortent aussitôt {mapAt}. Visite éclair.",
+      "📻 {squad} ont fait un petit tour {mapAt}, et rentrent déjà. Du tourisme en groupe, en somme.",
+      "📻 Run-through collectif {mapAt} pour {squad} : on arrive, on fait demi-tour, on repart.",
+      "📻 Passage éclair de {squad} {mapAt}. On n'a même pas eu le temps d'annoncer le départ.",
+      "📻 {squad} ressortent déjà {mapAt}, après {raidTime}. Pas même le temps de finir un café.",
+      "📻 Visite de courtoisie {mapAt} pour {squad} : on entre, on dit bonjour, on repart.",
+      "📻 {squad} font l'aller-retour {mapAt} en {raidTime}. Personne n'a rien vu passer."
     ],
     "levelUp": [
       "📻 Petite info en passant : {player} passe niveau {level}.",
       "📻 {player} atteint le niveau {level}. Prapor a sûrement déjà une nouvelle mission à lui confier.",
       "📻 Niveau {level} pour {player}. Les traders vont pouvoir augmenter leurs prix.",
-      "📻 On me dit que {player} vient de passer niveau {level}. Bravo."
+      "📻 On me dit que {player} vient de passer niveau {level}. Bravo.",
+      "📻 Niveau {level} pour {player}. Ça se fête, avec modération.",
+      "📻 {player} passe niveau {level}. Les scavs n'ont qu'à bien se tenir.",
+      "📻 Montée en grade : {player} atteint le niveau {level}.",
+      "📻 {player} atteint le niveau {level}. Encore un peu, et Peacekeeper acceptera peut-être de faire affaire.",
+      "📻 On félicite {player}, qui passe niveau {level}.",
+      "📻 {player} gagne un niveau, le {level}. L'expérience, ça ne s'achète pas.",
+      "📻 {player} grimpe au niveau {level}. On attend le discours.",
+      "📻 Un niveau de plus pour {player}, qui atteint le {level}."
     ],
     "bossKill": [
       "📻 Alors, on me confirme l'info : {boss} est mort, {mapAt}. Et c'est {player} qui l'a eu.",
       "📻 Alors, on me confirme l'info : {boss} est mort, {mapAt}. Et c'est {player} qui l'a eu. Ses gardes seraient, paraît-il, assez contrariés.",
       "📻 Grosse nouvelle {mapAt} : {boss} ne répond plus. On doit ça à {player}, à {distance}.",
       "📻 {player} vient d'abattre {boss} {mapAt}. Ça va se savoir.",
-      "📻 {boss} ne répond plus {mapAt}. {player} va pouvoir se servir dans ses poches."
+      "📻 {boss} ne répond plus {mapAt}. {player} va pouvoir se servir dans ses poches.",
+      "📻 Flash spécial {mapAt} : {boss} est à terre, et c'est {player} qui a tiré.",
+      "📻 {player} a eu {boss} {mapAt}, à {distance}. Le genre de nouvelle qu'on aime annoncer.",
+      "📻 {boss} vient de perdre son territoire {mapAt}. On doit ça à {player}.",
+      "📻 C'est confirmé {mapAt} : {boss} ne se relèvera pas. Merci à {player}, et merci à {weapon}.",
+      "📻 Duel {mapAt} entre {player} et {boss}, et c'est {player} qui l'emporte. Les gardes du corps vont devoir chercher du travail ailleurs.",
+      "📻 À la une {mapAt} : {player} abat {boss}. Le butin va faire des jaloux.",
+      "📻 {boss} est à terre {mapAt}. {player} n'a pas tremblé."
     ],
     "endBoss": [
       "Et au passage, {player} a eu {boss} : {details}.",
       "On me précise aussi que {boss} ne répond plus. C'est {player} : {details}.",
-      "Avant ça, {player} avait croisé {boss}… et c'est {boss} qui est resté au sol : {details}."
+      "Avant ça, {player} avait croisé {boss}… et c'est {boss} qui est resté au sol : {details}.",
+      "Petit détail, {player} a aussi eu {boss} : {details}.",
+      "Sans oublier {boss}, abattu par {player} : {details}.",
+      "Mention spéciale à {player}, qui a eu {boss} : {details}.",
+      "{boss} ne fera plus parler de lui, grâce à {player} : {details}.",
+      "Et {boss}, dans tout ça ? Réglé par {player} : {details}.",
+      "Pendant ce raid, {player} a aussi ajouté {boss} à son tableau de chasse : {details}."
     ],
     "endBossShort": [
       "Et au passage, {player} a eu {boss}.",
-      "On me précise aussi que {boss} ne répond plus. C'est {player}."
+      "On me précise aussi que {boss} ne répond plus. C'est {player}.",
+      "Petit détail, {player} a aussi eu {boss}.",
+      "Sans oublier {boss}, abattu par {player}.",
+      "Mention spéciale à {player}, qui a eu {boss}.",
+      "{boss} ne fera plus parler de lui, grâce à {player}.",
+      "Et {boss}, dans tout ça ? Réglé par {player}.",
+      "Pendant ce raid, {player} a aussi ajouté {boss} à son tableau de chasse."
     ],
     "endBosses": [
       "Et au passage, {player} a eu {bosses}. Rien que ça.",
-      "On me précise aussi que {bosses} ne répondent plus. C'est {player}."
+      "On me précise aussi que {bosses} ne répondent plus. C'est {player}.",
+      "Pendant ce raid, {player} a aussi ajouté {bosses} à son tableau de chasse.",
+      "Mention spéciale à {player} : {bosses}, en un seul raid.",
+      "Et {player} a fait le ménage : {bosses}.",
+      "{bosses} ne feront plus parler d'eux, grâce à {player}.",
+      "Carton plein pour {player} : {bosses}.",
+      "Les traders vont entendre parler de {player} : {bosses}, dans le même raid."
     ],
     "endLevel": [
       "Et {player} passe niveau {level}.",
       "Et avec tout ça, {player} monte niveau {level}.",
-      "Et pour finir, {player} passe niveau {level}."
+      "Et pour finir, {player} passe niveau {level}.",
+      "Et dans la foulée, {player} grimpe au niveau {level}.",
+      "Petit bonus : {player} passe niveau {level}.",
+      "Et cerise sur le gâteau, {player} passe niveau {level}.",
+      "Ce raid rapporte aussi un niveau à {player}, qui atteint le {level}.",
+      "Et {player} décroche le niveau {level} par la même occasion.",
+      "Petite consolation ou vraie fête, selon le cas : {player} passe niveau {level}."
     ]
+  },
+  "days": {
+    "monday": {
+      "connect": [
+        "📻 On est lundi, et {player} est déjà en ligne. La semaine commence fort.",
+        "📻 {player} se connecte. C'est lundi, on ne va pas se mentir : ça fait du bien."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Demain, c'est mardi, ça ira mieux.",
+        "📻 Fin de session pour {player}, après {duration}. Pour un lundi, c'est déjà pas mal."
+      ],
+      "raidStartSolo": [
+        "📻 {player} part en raid {mapAt}. Un lundi, il faut bien se défouler quelque part."
+      ],
+      "raidStartSquad": [
+        "📻 Réunion d'équipe du lundi {mapAt} : {squad}. À l'ordre du jour, rentrer en un seul morceau.",
+        "📻 C'est lundi, et {squad} partent en raid {mapAt}. Visiblement, personne n'avait envie de bosser."
+      ]
+    },
+    "tuesday": {
+      "connect": [
+        "📻 {player} se connecte. On est mardi, et le mardi, d'habitude, il ne se passe rien.",
+        "📻 C'est mardi, et {player} vient de se connecter. Pas besoin d'excuse, on ne juge pas."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Un mardi bien rempli.",
+        "📻 Fin de session pour {player}, après {duration}. Un mardi comme on les aime."
+      ],
+      "raidStartSolo": [
+        "📻 {player} part en raid {mapAt}, un mardi. Les scavs ne s'y attendaient pas."
+      ],
+      "raidStartSquad": [
+        "📻 Mardi, {squad} partent en raid {mapAt}. Pour les traders, c'est un jour ouvré comme un autre.",
+        "📻 {squad}, en raid {mapAt}. Le mardi aussi, ça compte."
+      ]
+    },
+    "wednesday": {
+      "connect": [
+        "📻 Mercredi : {player} est en ligne. La moitié de la semaine est derrière nous.",
+        "📻 On est mercredi, et {player} se connecte. Le plus dur de la semaine est fait."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Le milieu de semaine est passé.",
+        "📻 {player} nous quitte après {duration}. Plus que deux dodos avant vendredi."
+      ],
+      "raidStartSolo": [
+        "📻 Milieu de semaine, milieu de map : {player} part en raid {mapAt}."
+      ],
+      "raidStartSquad": [
+        "📻 Mercredi, {squad} partent en raid {mapAt}. Le week-end n'est plus très loin.",
+        "📻 {squad} entrent en raid {mapAt}. Mercredi, c'est presque le week-end, non ?"
+      ]
+    },
+    "thursday": {
+      "connect": [
+        "📻 Jeudi : {player} se connecte. Vendredi approche, la fatigue aussi.",
+        "📻 On est jeudi, et {player} est en ligne. Presque le week-end, mais pas tout à fait."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Demain, c'est vendredi : on tient bon.",
+        "📻 Fin de session pour {player} après {duration}. Il y a du boulot demain, paraît-il."
+      ],
+      "raidStartSolo": [
+        "📻 Jeudi, {player} part en raid {mapAt}. Un petit échauffement avant le week-end."
+      ],
+      "raidStartSquad": [
+        "📻 {squad} partent en raid {mapAt} un jeudi. Chez certains, le week-end commence plus tôt.",
+        "📻 Jeudi, {squad} entrent en raid {mapAt}. Répétition générale avant le week-end."
+      ]
+    },
+    "friday": {
+      "connect": [
+        "📻 C'est vendredi, et {player} est en ligne. Personne ne se couchera tôt ce soir.",
+        "📻 Vendredi : {player} se connecte. La semaine est finie, Tarkov peut commencer."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Un vendredi, on aurait parié sur plus.",
+        "📻 Fin de session pour {player}, après {duration}. Et le week-end ne fait que commencer."
+      ],
+      "raidStartSolo": [
+        "📻 Vendredi, {player} part en raid {mapAt}. Le week-end commence comme il se doit."
+      ],
+      "raidStartSquad": [
+        "📻 C'est vendredi, et {squad} partent en raid {mapAt}. Prévoyez la nuit.",
+        "📻 Vendredi soir {mapAt} : {squad}. Personne n'a mis de réveil pour demain."
+      ]
+    },
+    "saturday": {
+      "connect": [
+        "📻 Samedi : {player} est en ligne. Pas de réveil demain, alors on en profite.",
+        "📻 On est samedi, et {player} se connecte. Les courses attendront."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Un samedi, ça compte double.",
+        "📻 Fin de session pour {player} après {duration}. Un samedi, on s'attendait à une nuit blanche."
+      ],
+      "raidStartSolo": [
+        "📻 Samedi, {player} part en raid {mapAt}. À Tarkov, il n'y a pas de jour de repos."
+      ],
+      "raidStartSquad": [
+        "📻 {squad} partent en raid {mapAt}, un samedi. La grasse matinée de demain est déjà prévue.",
+        "📻 Sortie du samedi {mapAt} pour {squad}. Le ménage peut attendre."
+      ]
+    },
+    "sunday": {
+      "connect": [
+        "📻 Dimanche : {player} se connecte. Un dernier raid avant lundi… ou plusieurs.",
+        "📻 On est dimanche, et {player} est en ligne. Le repas de famille doit être terminé."
+      ],
+      "disconnect": [
+        "📻 {player} se déconnecte après {duration}. Demain, c'est lundi. Courage.",
+        "📻 {player} nous quitte après {duration}. Le blues du dimanche soir peut commencer."
+      ],
+      "raidStartSolo": [
+        "📻 Dimanche, {player} part en raid {mapAt}. Une petite promenade digestive."
+      ],
+      "raidStartSquad": [
+        "📻 {squad} partent en raid {mapAt}, un dimanche. Il faut bien digérer le repas.",
+        "📻 Dimanche, {squad} entrent en raid {mapAt}. Dernier raid du week-end, promis."
+      ]
+    }
   }
 }

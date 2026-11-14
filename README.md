@@ -123,7 +123,14 @@ With Ekky's [Raid Review](https://github.com/ekky-llc/spt-raid-review) installed
 
 `en` (default) and `fr` ship with the mod. To add one, copy `locales/en.json` to `locales/<code>.json`, translate it and set `language` to `<code>`. Any key the file lacks is said in English. Updates replace `en.json` and `fr.json`: put your own lines in a file of your own.
 
-Each key under `lines` holds several variants. The radio picks one at random, never the same one twice in a row. Placeholders:
+Each key under `lines` holds several variants. They take turns by the week, so the radio doesn't keep saying the same things:
+
+- **Each week says a third of a key's lines**, never fewer than four, and the next week the next third. One week never repeats the one before, and every line comes back every three weeks or so. A key with fewer than 8 lines says all of them every week.
+- **Within the week**, the radio goes through all of them in random order before any comes back, and never says the same one twice in a row.
+- **Lines for a day of the week** go under `days`, by day (`monday` to `sunday`) then by key: `days.friday.connect` joins `lines.connect` on Fridays, with the same placeholders. Your own language's `lines.<key>` leaves out English's day lines for that key, so give it its own `days` too.
+- **The radio's day starts at 05:00**, server time: a Friday night session that runs past midnight still gets Friday's lines. Weeks start on Monday at 05:00. In Docker, set the container's `TZ` (e.g. `Europe/Paris`), or the server's time is UTC.
+
+Placeholders:
 
 | Key | Placeholders |
 |---|---|
